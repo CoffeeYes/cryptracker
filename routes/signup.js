@@ -1,6 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var functions = require('../public/javascripts/functions.js')
+var functions = require('../public/javascripts/functions.js');
+var mClient = require('mongodb').MongoClient;
+
+//file containing api keys included
+var api_keys = require('../bin/api_keys.js')
+
+//variables imported from api_keys file
+var mongo_url = api_keys.mongo_url;
+var mongo_collection_name = api_keys.mongo_collection_name;
 
 
 router.get('/', function(req, res, next) {
@@ -24,10 +32,11 @@ router.post('/',function(req,res,next) {
     var user_info = {
       Username: req.body.username,
       Email: req.body.email,
+      //need to hash this
       Password: req.body.password1,
     }
 
-    database.collection(mongo_collection_name).insertOne()
+    database.collection(mongo_collection_name).insertOne(user_info)
   })
 });
 

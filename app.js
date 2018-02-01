@@ -4,6 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongodb = require('mongodb');
+var mClient = require('mongodb').MongoClient;
+
+//require a seperate file containing api_keys which is in .gitignore
+var api_keys = require("../bin/api_keys.js");
+var mongo_url = api_keys.mongo_url;
+var mongo_collection_name = api_keys.mongo_collection_name;
 
 //include routes
 var index = require('./routes/index');

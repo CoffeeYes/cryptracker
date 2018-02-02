@@ -5,6 +5,7 @@ block content
     .fill-container
       .center-container
         form.login-form(action="/login",method="post")
+          p.error=error
           label Username:
             input(name="username")
           label Password:

@@ -25,7 +25,10 @@ router.post('/',function(req,res,next) {
     return res.render('signup',{error: "Passwords do not match"})
   }
 
-  //TODO check email against regex
+  //check email against regex
+  if(functions.validate_email(req.body.email) == false) {
+    return res.render('signup',{error: "Invalid email address"})
+  }
 
   mClient.connect(api_keys.mongo_url,function(error,database) {
     if(error)throw error;
@@ -60,6 +63,7 @@ router.post('/',function(req,res,next) {
       }
     })
   })
+
 });
 
 module.exports = router;

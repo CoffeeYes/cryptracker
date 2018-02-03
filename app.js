@@ -22,6 +22,11 @@ var login = require('./routes/login');
 
 var app = express();
 
+//local variable middleware
+app.use(function(req,res,next) {
+
+})
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -33,6 +38,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//session setup
+app.use(session({
+  secret: api_keys.SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
 
 //use previously included routes
 app.use('/', index);

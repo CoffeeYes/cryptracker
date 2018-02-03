@@ -3,6 +3,7 @@ var router = express.Router();
 var functions = require('../public/javascripts/functions.js');
 var mClient = require('mongodb').MongoClient;
 var bcrypt = require('bcrypt');
+var session = require('express-session');
 
 //file containing api keys included
 var api_keys = require('../bin/api_keys.js')
@@ -30,6 +31,8 @@ router.post('/',function(req,res,next) {
           }
           else {
             //initialise session
+            req.session.userId = data[0]._id;
+            res.redirect('/')
           }
         })
       }

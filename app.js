@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 var mClient = require('mongodb').MongoClient;
+var session = require('express-session');
 
 //require a seperate file containing api_keys which is in .gitignore
 var api_keys = require("./bin/api_keys.js");
@@ -17,6 +18,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var signup = require('./routes/signup');
 var login = require('./routes/login');
+
 
 var app = express();
 

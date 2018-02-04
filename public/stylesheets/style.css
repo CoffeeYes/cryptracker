@@ -62,3 +62,9 @@ button {
   color: red;
   font-weight: bold;
 }
+
+.logout-form {
+  border: none;
+  display: flex;
+  align-self: flex-end;
+}

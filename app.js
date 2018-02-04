@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 var mClient = require('mongodb').MongoClient;
 var session = require('express-session');
+var mongoStore = require('connect-mongo')(session);
 
 //require a seperate file containing api_keys which is in .gitignore
 var api_keys = require("./bin/api_keys.js");
@@ -26,7 +27,8 @@ var app = express();
 app.use(session({
   secret: api_keys.SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new mongoStore({ url: api_keys.mongo_url })
 }))
 
 app.use(function(req,res,next) {

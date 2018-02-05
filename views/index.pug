@@ -15,6 +15,9 @@ block content
   else
     .horizontal-center
       .add-button +
-    .center-container
-      form.logout-form(action="/logout",method="post")
-        button Logout
+    .opaque-background
+      form.add-ticker(action="/add-ticker",method="post")
+        label test
+          input
+    form.logout-form(action="/logout",method="post")
+      button Logout

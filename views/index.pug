@@ -13,6 +13,8 @@ block content
           button Login
           a(href="/signup") Signup
   else
+    .horizontal-center
+      .add-button +
     .center-container
       form.logout-form(action="/logout",method="post")
         button Logout

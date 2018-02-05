@@ -17,7 +17,16 @@ block content
       .add-button +
     .opaque-background
       form.add-ticker(action="/add-ticker",method="post")
-        label test
-          input
+        label Exchange
+          select(name="exchange")
+            option(value="bitfinex") bitfinex
+        label Cryptocurrency
+          select(name="currency")
+            option(value="bitcoin") bitcoin
+        label Volume
+          input(name="volume")
+        label Buy-in
+          input(name="buyIn")
+        button Add
     form.logout-form(action="/logout",method="post")
       button Logout

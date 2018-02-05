@@ -23,6 +23,7 @@ form {
 label {
   color: #154360;
   margin-bottom: 5px;
+  display: block;
 }
 
 input {
@@ -33,6 +34,10 @@ input {
   border: 1px solid lightgrey;
   border-radius: 3px;
   font-size: 16px;
+}
+
+select {
+  float: right;
 }
 
 button {
@@ -102,4 +107,8 @@ button {
   align-items: center; /*jquery changes display to flex */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+}
+
+.add-ticker label {
+  margin-bottom: 20px;
 }

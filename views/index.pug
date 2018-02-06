@@ -18,11 +18,12 @@ block content
     .opaque-background
       form.add-ticker(action="/add-ticker",method="post")
         label Exchange
-          select(name="exchange")
+          select(name="exchange",class="exchange")
             option(value="bitfinex") bitfinex
+            option(value="binance") binance
         label Cryptocurrency
-          select(name="currency")
-            option(value="bitcoin") bitcoin
+          select(name="currency",class="currency")
+            option(class="option1")
         label Volume
           input(name="volume")
         label Buy-in

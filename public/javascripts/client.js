@@ -1,7 +1,7 @@
 //list of exchanges and their cryptos
 var exchange_list = {
-  "bitfinex" : ["test","test2"],
-  "binance" : ["omak","inta"]
+  "bitfinex" : ["Bitcoin","Ethereum","Ripple"],
+  "binance" : ["Bitcoin","Ethereum","Raiblocks"]
 }
 
 $(document).ready(function() {

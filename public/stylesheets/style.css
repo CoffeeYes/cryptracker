@@ -112,3 +112,20 @@ button {
 .add-ticker label {
   margin-bottom: 20px;
 }
+
+.navbar {
+  border-bottom: 1px solid black;
+  height: 50px;
+}
+
+.nav-items {
+  list-style: none;
+  float: right;
+  display:flex;
+  justify-content: flex-end;
+}
+
+.nav-items li {
+  display: inline;
+  margin-right: 20px;
+}

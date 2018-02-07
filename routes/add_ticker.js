@@ -7,7 +7,9 @@ var api_keys = require('../bin/api_keys.js');
 router.post('/',function(req,res) {
   mClient.connect(api_keys.mongo_url,function(error,database) {
     if(error)throw error;
-    database.collection(api_keys.mongo_collection_name).update({_id: ObjectId(req.session.userId)},{$push : {cryptos: req.body}})
+    database.collection(api_keys.mongo_collection_name).update({_id: ObjectId(req.session.userId)},{$push : {cryptos: req.body}});
+    database.close();
+    res.redirect('/')
   })
 })
 

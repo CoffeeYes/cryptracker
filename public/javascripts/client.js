@@ -1,5 +1,6 @@
 //list of exchanges and their cryptos
 var exchange_list = {
+  "Exchanges" : ["Bitfinex","Binance"],
   "Bitfinex" : ["Bitcoin","Litecoin","Ethereum","Ethereum Classic","Ripple","EOS","Bitcoin Cash","Iota","Dash","Zcash","Monero","OmiseGo"],
   "Binance" : ["Bitcoin","Ethereum","Raiblocks"]
 }
@@ -11,6 +12,9 @@ $(document).ready(function() {
   })
 
   //load up the initial dropdown values
+  $.each(exchange_list.Exchanges,function(item) {
+    $('.exchange').append($("<option></option>").text(exchange_list.Exchanges[item]))
+  })
   var exchange = $('.exchange').val();
   $.each(exchange_list[exchange],function(item) {
     $('.currency').append($("<option></option>").text(exchange_list[exchange][item]))

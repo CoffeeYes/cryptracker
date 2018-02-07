@@ -1,4 +1,5 @@
-.navbar
-  ul.nav-items
-    li test1
-    li test2
+if(currentUser)
+  .navbar
+    .nav-items
+        form.logout-form(action="/logout",method="post")
+          button Logout

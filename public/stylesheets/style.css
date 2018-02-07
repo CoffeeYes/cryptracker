@@ -76,7 +76,9 @@ button {
 .logout-form {
   border: none;
   display: flex;
-  align-self: flex-end;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 10px 10px 0 0 ;
 }
 
 .add-button {
@@ -115,7 +117,7 @@ button {
 
 .navbar {
   border-bottom: 1px solid black;
-  height: 50px;
+  height: 60px;
 }
 
 .nav-items {

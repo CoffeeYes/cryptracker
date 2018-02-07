@@ -48,7 +48,8 @@ router.post('/',function(req,res,next) {
 
             var user_info = {
               Username: req.body.username,
-              Email: req.body.email
+              Email: req.body.email,
+              cryptos: []
             }
 
             //asynchronously hash the password and push user_info to database on callback

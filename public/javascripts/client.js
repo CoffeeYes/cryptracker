@@ -24,4 +24,12 @@ $(document).ready(function() {
       $('.currency').append($("<option></option>").text(exchange_list[exchange][item]))
     })
   })
+
+  $('.add-ticker').submit(function(e) {
+    if( $('#volume').val().trim() == "" || $('#buyIn').val().trim() == "") {
+      e.preventDefault();
+      $('.error').text('fields cannot be empty')
+    }
+
+  })
 })

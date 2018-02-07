@@ -10,7 +10,13 @@ $(document).ready(function() {
     $('.opaque-background').css('display','flex');
   })
 
-  //on change of exchange value, clear currency values and re-render new values from exchange_list
+  //load up the initial dropdown values
+  var exchange = $('.exchange').val();
+  $.each(exchange_list[exchange],function(item) {
+    $('.currency').append($("<option></option>").text(exchange_list[exchange][item]))
+  })
+
+  //on change of exchange, clear currency dropdown values and re-render new values from exchange_list
   $('.exchange').change(function() {
     var exchange = $('.exchange').val();
     $('.currency').empty();

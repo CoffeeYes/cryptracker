@@ -131,3 +131,53 @@ button {
   display: inline;
   margin-right: 20px;
 }
+
+.ticker-container {
+  margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.label-container {
+  margin-top: 1em;
+  margin-left: 2em;
+}
+
+.value-container {
+  margin-left: 2em;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  height: 150px;
+}
+
+.ticker {
+  border: 2px solid #2874A6;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px grey;
+  width: 90vw;
+  height: 13em;
+  margin-bottom: 20px;
+  display: block;
+}
+.ticker .label {
+  display: inline;
+  color: #154360;
+}
+
+.value-container .label {
+  align-self: flex-end;
+  color: #465CE8
+}
+
+.ticker h2 {
+  display: inline;
+  margin-right: 2em;
+  margin-left: 1em;
+}
+
+.val {
+  font-size: 72px;
+}

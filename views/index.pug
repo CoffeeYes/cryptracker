@@ -27,3 +27,5 @@ block content
         label Buy-in
           input(name="buyIn",id="buyIn",type="number",step="any")
         button(type="submit") Add
+    each item in ticker_arr
+      p=item.exchange

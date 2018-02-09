@@ -15,12 +15,15 @@ var validate_email = function(string) {
   return email_regex.test(string);
 }
 
-var get_api_data = function(exchange,currency) {
+var get_api_data = function(exchange,currency,callback) {
   if(exchange == "Bitfinex") {
     var ticker = ticker_table.table[exchange][currency];
     request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,function(error,response,body) {
-      if(error)throw error;
-      console.log(body)
+      if (error || response.statusCode !== 200) {
+        return callback(error || {statusCode: response.statusCode});
+      }
+      var result = JSON.parse(body);
+      return callback(null,result.ask)
     })
   }
 }

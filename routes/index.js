@@ -8,6 +8,7 @@ var request = require('request');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  //if user is logged in
   if (!req.session.userId) {
     res.render('index');
   }
@@ -17,6 +18,7 @@ router.get('/', function(req, res, next) {
       database.collection(api_keys.mongo_collection_name).find({_id: ObjectId(req.session.userId)}).toArray(function(error,data) {
         if(error)throw error;
         console.log(data[0])
+        //pull api data based on exchange and currency, return data in callback
         functions.get_api_data(data[0].cryptos[0].exchange,data[0].cryptos[0].currency,function(error,body) {
           if(error)throw error;
           console.log(body)

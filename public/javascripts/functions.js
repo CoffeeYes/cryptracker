@@ -1,5 +1,6 @@
 var request = require('request');
-var ticker_table = require('./ticker_table.js')
+var ticker_table = require('./ticker_table.js');
+var Promise = require('promise')
 
 var check_empty = function(body) {
   for(var item in body) {
@@ -29,8 +30,19 @@ var get_api_data = function(exchange,currency,callback) {
   }
 }
 
+var get_api_data_2 = function(exchange,currency) {
+  var ticker = ticker_table.table[exchange][currency]
+  return new Promise(function(fulfill,reject) {
+    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,function(error,response,body) {
+      if(error) reject(error);
+      else fulfill(body);
+    })
+  })
+}
+
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
-  get_api_data: get_api_data
+  get_api_data: get_api_data,
+  get_api_data_2: get_api_data_2
 }

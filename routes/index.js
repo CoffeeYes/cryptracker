@@ -18,14 +18,11 @@ router.get('/', function(req, res, next) {
       database.collection(api_keys.mongo_collection_name).find({_id: ObjectId(req.session.userId)}).toArray(function(error,data) {
         if(error)throw error;
         //pull api data based on exchange and currency, return data in callback
-        functions.get_api_data(data[0].cryptos[0].exchange,data[0].cryptos[0].currency,function(error,body) {
-          if(error)throw error;
-          console.log(body)
-          var result = data[0].cryptos;
-          result[0].Cvalue = parseInt(body) * parseInt(result[0].volume);
-          res.render('index',{ticker_arr: result})
+        functions.get_api_data_2(data[0].cryptos[0].exchange,data[0].cryptos[0].currency).then(function(result) {
+          var result = JSON.parse(result)
+          data[0].cryptos[0].Cvalue = parseInt(result.ask) * parseInt(data[0].cryptos[0].volume)
+          res.render('index',{ticker_arr: data[0].cryptos})
         })
-        //res.render('index',{ticker_arr: data[0].cryptos})
       })
     })
   }

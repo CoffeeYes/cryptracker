@@ -8,6 +8,7 @@ var mongodb = require('mongodb');
 var mClient = require('mongodb').MongoClient;
 var session = require('express-session');
 var mongoStore = require('connect-mongo')(session);
+var request = require('request');
 
 //require a seperate file containing api_keys which is in .gitignore
 var api_keys = require("./bin/api_keys.js");

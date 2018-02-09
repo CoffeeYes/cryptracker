@@ -1,3 +1,6 @@
+var request = require('request');
+var ticker_table = require('./ticker_table.js')
+
 var check_empty = function(body) {
   for(var item in body) {
     if(body[item].trim() == "") {
@@ -12,7 +15,25 @@ var validate_email = function(string) {
   return email_regex.test(string);
 }
 
+var get_api_data = function(exchange,currency) {
+  if(exchange == "Bitfinex") {
+    var ticker = ticker_table.table[exchange][currency];
+    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,function(error,response,body) {
+      if(error)throw error;
+      console.log(body)
+    })
+  }
+}
+
+var get_test = function() {
+  request.get('https://api.bitfinex.com/v1/pubticker/btcusd',function(error,response,body) {
+    console.log(body)
+  })
+}
+
 module.exports = {
   check_empty: check_empty,
-  validate_email: validate_email
+  validate_email: validate_email,
+  get_api_data: get_api_data,
+  get_test: get_test
 }

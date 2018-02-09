@@ -17,11 +17,23 @@ router.get('/', function(req, res, next) {
       if(error)throw error;
       database.collection(api_keys.mongo_collection_name).find({_id: ObjectId(req.session.userId)}).toArray(function(error,data) {
         if(error)throw error;
-        //pull api data based on exchange and currency, return data in callback
-        functions.get_api_data_2(data[0].cryptos[0].exchange,data[0].cryptos[0].currency).then(function(result) {
-          var result = JSON.parse(result)
-          data[0].cryptos[0].Cvalue = parseInt(result.ask) * parseInt(data[0].cryptos[0].volume)
-          res.render('index',{ticker_arr: data[0].cryptos})
+        //use promises to get api data for each ticker and render to index once complete
+        var tickers = data[0].cryptos;
+        var promises = [];
+
+        //get api data for each ticker
+        for(var i = 0; i < tickers.length; i++) {
+          promises.push(functions.get_api_data_2(tickers[i].exchange,tickers[i].currency));
+        }
+
+        //once all promises have resolved, comput current value and render to index
+        Promise.all(promises).then(function(result) {
+          for(var i = 0;i < tickers.length; i++) {
+            var temp = JSON.parse(result[i]);
+            var current_ask = temp.ask;
+            tickers[i].Cvalue = parseInt(current_ask) * parseInt(tickers[i].volume)
+          }
+          res.render('index',{ticker_arr: tickers})
         })
       })
     })

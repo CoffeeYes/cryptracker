@@ -36,4 +36,21 @@ $(document).ready(function() {
     }
 
   })
+
+  //change color of current value relative to original value
+  $('.ticker').each(function() {
+    if(parseInt($(this).find($('.display-Cvalue')).text()) > parseInt($(this).find($('.display-Ovalue')).text())) {
+      $(this).find($('.display-Cvalue')).css('color','green')
+    }
+    else {
+      $(this).find($('.display-Cvalue')).css('color','red')
+    }
+
+    //calculate and assign gained value, aswell as color
+    var Gvalue = parseInt($(this).find($('.display-Cvalue')).text()) - parseInt($(this).find($('.display-Ovalue')).text())
+    var color_val = $(this).find($('.display-Cvalue')).css('color')
+
+    $(this).find($('.display-Gvalue')).text(Gvalue)
+    $(this).find($('.display-Gvalue')).css('color',color_val)
+  })
 })

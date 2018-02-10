@@ -26,12 +26,16 @@ router.get('/', function(req, res, next) {
           promises.push(functions.get_api_data_2(tickers[i].exchange,tickers[i].currency));
         }
 
+        request.get("https://api.bitfinex.com/v1/symbols",function(error,response,body) {
+          console.log(body)
+        })
+
         //once all promises have resolved, comput current value and render to index
         Promise.all(promises).then(function(result) {
           for(var i = 0;i < tickers.length; i++) {
             var temp = JSON.parse(result[i]);
             var current_ask = temp.ask;
-            tickers[i].Cvalue = parseInt(current_ask) * parseInt(tickers[i].volume)
+            tickers[i].Cvalue = (parseFloat(current_ask) * parseFloat(tickers[i].volume) ).toFixed(2)
           }
           res.render('index',{ticker_arr: tickers})
         })

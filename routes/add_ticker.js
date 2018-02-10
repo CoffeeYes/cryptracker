@@ -9,7 +9,7 @@ router.post('/',function(req,res) {
     if(error)throw error;
     var push_data = req.body;
     //calculate original value
-    push_data.Ovalue = parseInt(push_data.volume) * parseInt(push_data.buyIn);
+    push_data.Ovalue = (parseInt(push_data.volume) * parseFloat(push_data.buyIn)).toFixed(2);
     database.collection(api_keys.mongo_collection_name).update({_id: ObjectId(req.session.userId)},{$push : {cryptos: push_data}});
     database.close();
     res.redirect('/')

@@ -1,7 +1,8 @@
 //list of exchanges and their cryptos
 var exchange_list = {
   "Exchanges" : ["Bitfinex","Binance"],
-  "Bitfinex" : ["Bitcoin","Litecoin","Ethereum","Ethereum Classic","Ripple","EOS","Bitcoin Cash","Iota","Dash","Zcash","Monero","OmiseGo"],
+  "Bitfinex" : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
+"FunFair","Eidoo","YOYOW","Decentraland","Time New Bank","Golem","AidCoin","SpankChain","Aventus","Augur","Basic Attention Token","iExec","SingularDTV","RCN"],
   "Binance" : ["Bitcoin","Ethereum","Raiblocks"]
 }
 
@@ -39,7 +40,7 @@ $(document).ready(function() {
 
   //change color of current value relative to original value
   $('.ticker').each(function() {
-    if(parseInt($(this).find($('.display-Cvalue')).text()) > parseInt($(this).find($('.display-Ovalue')).text())) {
+    if(parseFloat($(this).find($('.display-Cvalue')).text()) > parseFloat($(this).find($('.display-Ovalue')).text())) {
       $(this).find($('.display-Cvalue')).css('color','green')
     }
     else {
@@ -47,7 +48,7 @@ $(document).ready(function() {
     }
 
     //calculate and assign gained value, aswell as color
-    var Gvalue = parseInt($(this).find($('.display-Cvalue')).text()) - parseInt($(this).find($('.display-Ovalue')).text())
+    var Gvalue = (parseFloat($(this).find($('.display-Cvalue')).text()) - parseFloat($(this).find($('.display-Ovalue')).text())).toFixed(2)
     var color_val = $(this).find($('.display-Cvalue')).css('color')
 
     $(this).find($('.display-Gvalue')).text(Gvalue)

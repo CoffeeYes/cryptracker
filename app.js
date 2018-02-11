@@ -6,9 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 var mClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 var session = require('express-session');
 var mongoStore = require('connect-mongo')(session);
 var request = require('request');
+
+//local files
+var ticker_table = require('./public/javascripts/ticker_table.js');
+var functions = require('./public/javascripts/functions.js')
 
 //require a seperate file containing api_keys which is in .gitignore
 var api_keys = require("./bin/api_keys.js");
@@ -76,4 +81,32 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+setInterval(function() {
+  var promises = [];
+
+  //lookup tickers in ticker table and then perform api call, push result into promises array
+  for(var i = 0; i < Object.keys(ticker_table.table.Bitfinex).length; i++) {
+    current_ticker = (ticker_table.table.Bitfinex[Object.keys(ticker_table.table.Bitfinex)[i]])
+
+    promises.push(functions.bitfinex_interval(current_ticker))
+  }
+
+  Promise.all(promises).then(function(result) {
+    for(var i = 0; i < result.length; i++) {
+      current_ticker = ticker_table.table.Bitfinex[Object.keys(ticker_table.table.Bitfinex)[i]]
+      console.log(current_ticker + " : " + JSON.parse(result[i]).bid)
+    }
+
+    mClient.connect(api_keys.mongo_url,function(error,database) {
+      if(error)throw error;
+      for(var i = 0;i <result.length;i++) {
+        current_ticker = ticker_table.table.Bitfinex[Object.keys(ticker_table.table.Bitfinex)[i]];
+        current_value = JSON.parse(result[i]).bid;
+        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bitfinex." + current_ticker] : current_value}})
+      }
+    })
+  })
+
+
+},120000)
 module.exports = app;

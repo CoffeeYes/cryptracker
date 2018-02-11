@@ -16,33 +16,32 @@ var validate_email = function(string) {
   return email_regex.test(string);
 }
 
-//pull data from api based on exchange and currency passed in
-var get_api_data = function(exchange,currency,callback) {
+//request api data and return a promise
+var get_api_data_2 = function(exchange,currency) {
+  var ticker = ticker_table.table[exchange][currency]
   if(exchange == "Bitfinex") {
-    var ticker = ticker_table.table[exchange][currency];
-    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,function(error,response,body) {
-      if (error || response.statusCode !== 200) {
-        return callback(error || {statusCode: response.statusCode});
-      }
-      var result = JSON.parse(body);
-      return callback(null,result.ask)
+    return new Promise(function(fulfill,reject) {
+      request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,function(error,response,body) {
+        if(error) reject(error);
+        else fulfill(body);
+      })
     })
   }
 }
 
-var get_api_data_2 = function(exchange,currency) {
-  var ticker = ticker_table.table[exchange][currency]
+var bitfinex_interval = function(ticker) {
   return new Promise(function(fulfill,reject) {
-    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,function(error,response,body) {
-      if(error) reject(error);
+    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker, function(error,response,body) {
+      if(error)reject(error);
       else fulfill(body);
     })
   })
 }
 
+
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
-  get_api_data: get_api_data,
-  get_api_data_2: get_api_data_2
+  get_api_data_2: get_api_data_2,
+  bitfinex_interval: bitfinex_interval
 }

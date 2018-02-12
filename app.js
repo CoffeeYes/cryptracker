@@ -81,6 +81,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//interval update of api data on database to avoid rate limiting
 setInterval(function() {
   var promises = [];
 
@@ -91,6 +92,7 @@ setInterval(function() {
     promises.push(functions.bitfinex_interval(current_ticker))
   }
 
+  //once all promises resolve, parse data and push to database
   Promise.all(promises).then(function(result) {
     for(var i = 0; i < result.length; i++) {
       current_ticker = ticker_table.table.Bitfinex[Object.keys(ticker_table.table.Bitfinex)[i]]
@@ -104,6 +106,7 @@ setInterval(function() {
         current_value = JSON.parse(result[i]).bid;
         database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bitfinex." + current_ticker] : current_value}})
       }
+      console.log('database updated')
     })
   })
 

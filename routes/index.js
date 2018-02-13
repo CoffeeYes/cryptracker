@@ -28,8 +28,8 @@ router.get('/', function(req, res, next) {
           for(var i = 0; i < user_cryptos.length;i++) {
             var current_crypto = user_cryptos[i].currency;
             var current_exchange = user_cryptos[i].exchange;
-            var current_ticker = ticker_table.table[current_exchange][current_crypto];
-            user_cryptos[i].Cvalue = data[0].Bitfinex[current_ticker]
+            var current_ticker = ticker_table.table[current_exchange][current_crypto] + user_cryptos[i].against;
+            user_cryptos[i].Cvalue = data[0][current_exchange][current_ticker];
           }
           return res.render('index',{ticker_arr: user_cryptos})
         })

@@ -7,8 +7,13 @@ var exchange_list = {
     against : ["usd","btc"]
   },
   "Binance" : {
-    currencies: ["Bitcoin","Ethereum","Raiblocks"],
-    against: ["btc","etc"]
+    currencies: ["ETH",
+    "LTC","BNB","NEO","QTUM","EOS","BCC","SNT","BNT","HSR","USDT","GAS","ICN","DNT","MCO","OAX","LRC","WTC","OMG","YOYO","STRAT","ZRX","BQX","KNC","SNGLS","SNM",
+    "FUN","LINK","IOTA","CTR","SALT","XVG","MTL","MDA","ETC","SUB","ENG","MTH","ZEC","AST","DASH","EVX","REQ","BTG","TRX","VIB","ARK","POWR","MOD","XRP","STORJ",
+    "ENJ","VEN","RCN","KMD","NULS","RDN","DLT","XMR","AMB","BAT","BCPT","ARN","CDT","GVT","POE","GXS","QSP","BTS","XZC","TNT","LSK","MANA","BCD","FUEL","ADX",
+    "DGD","ADA","PPT","CMT","XLM","CND","LEND","WABI","TNB","GTO","WAVES","ICX","OST","ELF","AION","BRD","NEBL","EDO","NAV","WINGS","TRIG","LUN","VIBE","INS","APPC",
+    "RLC","IOST","PIVX","STEEM","CHAT","VIA","NANO","AE","BLZ","RPX",],
+    against: ["BTC","ETH","BNB","USDT"]
   }
 }
 

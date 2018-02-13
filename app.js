@@ -86,27 +86,25 @@ setInterval(function() {
   var promises = [];
 
   //lookup tickers in ticker table and then perform api call, push result into promises array
-  for(var i = 0; i < Object.keys(ticker_table.table.Bitfinex).length; i++) {
-    current_ticker = (ticker_table.table.Bitfinex[Object.keys(ticker_table.table.Bitfinex)[i]])
 
-    promises.push(functions.bitfinex_interval(current_ticker))
-  }
-
-  //once all promises resolve, parse data and push to database
-  Promise.all(promises).then(function(result) {
-    for(var i = 0; i < result.length; i++) {
-      current_ticker = ticker_table.table.Bitfinex[Object.keys(ticker_table.table.Bitfinex)[i]]
-      console.log(current_ticker + " : " + JSON.parse(result[i]).bid)
+  request.get('https://api.bitfinex.com/v1/symbols',function(error,response,body) {
+    var result = JSON.parse(body);
+    for(var item in result) {
+      current_ticker = result[item];
+      promises.push(functions.bitfinex_interval(current_ticker))
     }
+    Promise.all(promises).then(function(api_data) {
+      mClient.connect(api_keys.mongo_url,function(error,database) {
+        for(var i=0;i< result.length;i++) {
+          var current_ticker = result[i];
+          var current_price = JSON.parse(api_data[i]).bid
+          if(current_price != undefined) {
+            database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set: {["Bitfinex." + current_ticker] : current_price}})
+          }
+        }
+        console.log('Bitfinex data updated')
+      })
 
-    mClient.connect(api_keys.mongo_url,function(error,database) {
-      if(error)throw error;
-      for(var i = 0;i <result.length;i++) {
-        current_ticker = ticker_table.table.Bitfinex[Object.keys(ticker_table.table.Bitfinex)[i]];
-        current_value = JSON.parse(result[i]).bid;
-        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bitfinex." + current_ticker] : current_value}})
-      }
-      console.log('Bitfinex data updated')
     })
   })
 

@@ -1,9 +1,15 @@
 //list of exchanges and their cryptos
 var exchange_list = {
   "Exchanges" : ["Bitfinex","Binance"],
-  "Bitfinex" : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
-"FunFair","Eidoo","YOYOW","Decentraland","Time New Bank","Golem","AidCoin","SpankChain","Aventus","Augur","Basic Attention Token","iExec","SingularDTV","RCN"],
-  "Binance" : ["Bitcoin","Ethereum","Raiblocks"]
+  "Bitfinex" : {
+    currencies : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
+  "FunFair","Eidoo","YOYOW","Decentraland","Time New Bank","Golem","AidCoin","SpankChain","Aventus","Augur","Basic Attention Token","iExec","SingularDTV","RCN"],
+    against : ["usd","btc"]
+  },
+  "Binance" : {
+    currencies: ["Bitcoin","Ethereum","Raiblocks"],
+    against: ["btc","etc"]
+  }
 }
 
 $(document).ready(function() {
@@ -16,17 +22,31 @@ $(document).ready(function() {
   $.each(exchange_list.Exchanges,function(item) {
     $('.exchange').append($("<option></option>").text(exchange_list.Exchanges[item]))
   })
+
   var exchange = $('.exchange').val();
-  $.each(exchange_list[exchange],function(item) {
-    $('.currency').append($("<option></option>").text(exchange_list[exchange][item]))
+
+  $.each(exchange_list[exchange].currencies,function(item) {
+    $('.currency').append($("<option></option>").text(exchange_list[exchange].currencies[item]))
   })
+
+  $.each(exchange_list[exchange].against,function(item) {
+    $('.against').append($("<option></option>").text(exchange_list[exchange].against[item]))
+  })
+
 
   //on change of exchange, clear currency dropdown values and re-render new values from exchange_list
   $('.exchange').change(function() {
     var exchange = $('.exchange').val();
+
     $('.currency').empty();
-    $.each(exchange_list[exchange],function(item) {
-      $('.currency').append($("<option></option>").text(exchange_list[exchange][item]))
+    $('.against').empty();
+
+    $.each(exchange_list[exchange].currencies,function(item) {
+      $('.currency').append($("<option></option>").text(exchange_list[exchange].currencies[item]))
+    })
+
+    $.each(exchange_list[exchange].against,function(item) {
+      $('.against').append($("<option></option>").text(exchange_list[exchange].against[item]))
     })
   })
 

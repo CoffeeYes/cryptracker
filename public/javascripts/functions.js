@@ -38,10 +38,20 @@ var bitfinex_interval = function(ticker) {
   })
 }
 
+var get_binance_data = function() {
+  return new Promise(function(fulfill,reject) {
+    request.get('https://api.binance.com/api/v3/ticker/price',function(error,response,body) {
+      if(error) reject(error);
+      else fulfill(body);
+    })
+  })
+}
+
 
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
   get_api_data_2: get_api_data_2,
-  bitfinex_interval: bitfinex_interval
+  bitfinex_interval: bitfinex_interval,
+  get_binance_data: get_binance_data
 }

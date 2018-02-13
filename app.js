@@ -106,10 +106,23 @@ setInterval(function() {
         current_value = JSON.parse(result[i]).bid;
         database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bitfinex." + current_ticker] : current_value}})
       }
-      console.log('database updated')
+      console.log('Bitfinex data updated')
     })
   })
 
-
+  functions.get_binance_data().then(function(result) {
+    var result = JSON.parse(result)
+    mClient.connect(api_keys.mongo_url,function(error,database) {
+      if(error)throw error;
+      for(var item in result) {
+        current_ticker = result[item].symbol;
+        current_price = result[item].price;
+        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Binance." + current_ticker] : current_price}})
+      }
+      console.log('Binance data updated')
+    })
+  })
 },120000)
+
+
 module.exports = app;

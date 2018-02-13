@@ -36,6 +36,10 @@ router.get('/', function(req, res, next) {
       })
     })
   }
+
+  functions.get_binance_data().then(function(result) {
+    console.log(result);
+  })
 });
 
 module.exports = router;

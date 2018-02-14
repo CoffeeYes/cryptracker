@@ -27,6 +27,7 @@ var signup = require('./routes/signup');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 var add_ticker = require('./routes/add_ticker');
+var del_ticker = require('./routes/del_ticker');
 
 
 var app = express();
@@ -62,6 +63,7 @@ app.use('/signup',signup);
 app.use('/login',login);
 app.use('/logout',logout);
 app.use('/add-ticker',add_ticker);
+app.use('/del-ticker',del_ticker);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -34,7 +34,7 @@ block content
         .ticker
           form.del-ticker(action='/del-ticker',method='post')
             button X
-            input.hidden(value=item.id)
+            input.hidden(value=item.id,name='id')
           .label-container
             h3.label Exchange :
               h2.display-exchange=item.exchange

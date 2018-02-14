@@ -189,3 +189,7 @@ button {
   float: right;
   width: auto;
 }
+
+.hidden {
+  display: none;
+}

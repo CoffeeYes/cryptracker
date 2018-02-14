@@ -181,3 +181,11 @@ button {
 .val {
   font-size: 40px;
 }
+
+.del-ticker {
+  padding: 0;
+  margin: 0;
+  border: none;
+  float: right;
+  width: auto;
+}

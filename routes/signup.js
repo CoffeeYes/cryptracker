@@ -49,6 +49,7 @@ router.post('/',function(req,res,next) {
             var user_info = {
               Username: req.body.username,
               Email: req.body.email,
+              ticker_id : 1,
               cryptos: []
             }
 

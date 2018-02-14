@@ -32,6 +32,8 @@ block content
     .ticker-container
       each item in ticker_arr
         .ticker
+          form.del-ticker(action='/del-ticker',method='post')
+            button X
           .label-container
             h3.label Exchange :
               h2.display-exchange=item.exchange

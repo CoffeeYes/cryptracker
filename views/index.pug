@@ -15,6 +15,7 @@ block content
   else
     .horizontal-center
       .add-button +
+      p.error=error
     .opaque-background
       form.add-ticker(action="/add-ticker",method="post")
         p.error

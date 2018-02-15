@@ -59,7 +59,9 @@ button {
 
 .horizontal-center {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .fill-container {
@@ -71,6 +73,7 @@ button {
 .error {
   color: red;
   font-weight: bold;
+  display: block;
 }
 
 .logout-form {

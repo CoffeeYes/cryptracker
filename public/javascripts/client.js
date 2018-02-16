@@ -1,19 +1,23 @@
 //list of exchanges and their cryptos
 var exchange_list = {
-  "Exchanges" : ["Bitfinex","Binance"],
+  "Exchanges" : ["Bitfinex","Binance","Coinbase"],
   "Bitfinex" : {
-    currencies : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
+    "currencies" : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
   "FunFair","Eidoo","YOYOW","Decentraland","Time New Bank","Golem","AidCoin","SpankChain","Aventus","Augur","Basic Attention Token","iExec","SingularDTV","RCN"],
-    against : ["usd","btc","eth"]
+    "against" : ["usd","btc","eth"]
   },
   "Binance" : {
-    currencies: ["ETH",
+    "currencies": ["ETH",
     "LTC","BNB","NEO","QTUM","EOS","BCC","SNT","BNT","HSR","USDT","GAS","ICN","DNT","MCO","OAX","LRC","WTC","OMG","YOYO","STRAT","ZRX","BQX","KNC","SNGLS","SNM",
     "FUN","LINK","IOTA","CTR","SALT","XVG","MTL","MDA","ETC","SUB","ENG","MTH","ZEC","AST","DASH","EVX","REQ","BTG","TRX","VIB","ARK","POWR","MOD","XRP","STORJ",
     "ENJ","VEN","RCN","KMD","NULS","RDN","DLT","XMR","AMB","BAT","BCPT","ARN","CDT","GVT","POE","GXS","QSP","BTS","XZC","TNT","LSK","MANA","BCD","FUEL","ADX",
     "DGD","ADA","PPT","CMT","XLM","CND","LEND","WABI","TNB","GTO","WAVES","ICX","OST","ELF","AION","BRD","NEBL","EDO","NAV","WINGS","TRIG","LUN","VIBE","INS","APPC",
     "RLC","IOST","PIVX","STEEM","CHAT","VIA","NANO","AE","BLZ","RPX",],
-    against: ["BTC","ETH","BNB","USDT"]
+    "against": ["BTC","ETH","BNB","USDT"]
+  },
+  "Coinbase" : {
+    "currencies" : ["Bitcoin","Litecoin","Ethereum","Bitcoin Cash"],
+    "against": ["-USD","-EUR","-GBP"]
   }
 }
 

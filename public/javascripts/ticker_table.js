@@ -150,6 +150,12 @@ var table = {
         "AE" : "AE",
         "BLZ" : "BLZ",
         "RPX" : "RPX",
+  },
+  "Coinbase" : {
+    "Bitcoin" : "BTC",
+    "Litecoin" : "LTC",
+    "Ethereum" : "ETH",
+    "Bitcoin Cash" : "BCH"
   }
 }
 

@@ -85,12 +85,13 @@ app.use(function(err, req, res, next) {
 
 //interval update of api data on database to avoid rate limiting
 setInterval(function() {
-  var promises = [];
+
 
   //lookup tickers in ticker table and then perform api call, push result into promises array
 
   request.get('https://api.bitfinex.com/v1/symbols',function(error,response,body) {
     var result = JSON.parse(body);
+    var promises = [];
     for(var item in result) {
       current_ticker = result[item];
       promises.push(functions.bitfinex_interval(current_ticker))
@@ -122,6 +123,21 @@ setInterval(function() {
       console.log('Binance data updated')
     })
   })
+
+  //get coinbase data and push to database
+  Promise.all(functions.get_coinbase_data()).then(function(result) {
+    mClient.connect(api_keys.mongo_url,function(error,database) {
+      if(error)throw error;
+      for(var item in result) {
+        var current_ticker = result[item].data.base + "-" + result[item].data.currency
+        var current_value = result[item].data.amount
+        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Coinbase." + current_ticker] : current_value}})
+      }
+      console.log('Coinbase data updated')
+    })
+
+  })
+
 },120000)
 
 

@@ -47,11 +47,28 @@ var get_binance_data = function() {
   })
 }
 
+var get_coinbase_data = function() {
+  var promises = [];
+  var against_arr = ["-USD","-EUR","-GBP"]
+  for(var item in ticker_table.table.Coinbase) {
+    for(x = 0; x< against_arr.length; x++) {
+      current_ticker = ticker_table.table.Coinbase[item] + against_arr[x]
+      var promise = new Promise(function(fulfill,reject) {
+        request.get('https://api.coinbase.com/v2/prices/' + current_ticker + '/spot',function(error,response,body) {
+          if(error)reject(error);
+          else fulfill(JSON.parse(body))
+        })
+      })
+      promises.push(promise)
+    }
+  }
+  return promises
+}
 
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
-  get_api_data_2: get_api_data_2,
+  get_binance_data: get_binance_data,
   bitfinex_interval: bitfinex_interval,
-  get_binance_data: get_binance_data
+  get_coinbase_data: get_coinbase_data
 }

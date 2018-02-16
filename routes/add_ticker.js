@@ -19,8 +19,6 @@ router.post('/',function(req,res) {
       }
 
       else {
-        database.close();
-
         database.collection(api_keys.mongo_collection_name).find({_id: ObjectId(req.session.userId)}).toArray(function(error,data) {
           if(error)throw error;
           //get id for ticker
@@ -36,7 +34,7 @@ router.post('/',function(req,res) {
           database.close();
           res.redirect('/')
         })
-        
+
       }
 
     })

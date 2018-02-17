@@ -65,10 +65,20 @@ var get_coinbase_data = function() {
   return promises
 }
 
+var bittrex_interval = function(ticker) {
+  return new Promise(function(fulfill,reject) {
+    request.get('https://bittrex.com/api/v1.1/public/getticker?market=' + ticker,function(error,response,body) {
+      if(error)reject(error);
+      else fulfill(body);
+    })
+  })
+}
+
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
   get_binance_data: get_binance_data,
   bitfinex_interval: bitfinex_interval,
-  get_coinbase_data: get_coinbase_data
+  get_coinbase_data: get_coinbase_data,
+  bittrex_interval: bittrex_interval
 }

@@ -18,6 +18,17 @@ var exchange_list = {
   "Coinbase" : {
     "currencies" : ["Bitcoin","Litecoin","Ethereum","Bitcoin Cash"],
     "against": ["-USD","-EUR","-GBP"]
+  },
+  "Bittrex" : {
+    "currencies" : [ 'Litecoin','Dogecoin','Vertcoin','Peercoin','Feathercoin','ReddCoin','NXT','Dash','PotCoin','BlackCoin','Einsteinium','Myriad','AuroraCoin','ElectronicGulden','GoldCoin','SolarCoin','PesetaCoin ','Groestlcoin','Gulden','RubyCoin','WhiteCoin','MonaCoin','HempCoin',
+    'EnergyCoin','EuropeCoin','VeriCoin','CureCoin','Monero','CloakCoin','StartCoin','Kore','DigitalNote','TrustPlus','NAVCoin','StealthCoin','ViaCoin ','PinkCoin','I/OCoin','CannabisCoin','SysCoin','NeosCoin','Digibyte','BURSTCoin','ExclusiveCoin','Bitswift','DopeCoin','BlockNet','ArtByte',
+    'Bytecent','Magi','Blitzcash','BitBay','FairCoin','SpreadCoin','vTorrent','Ripple','GameCredits','Circuits of Value','Nexus','Counterparty','BitBean','GeoCoin','FoldingCoin','GridCoin','Florin','Nubits','MonetaryUnit','NewEconomyMovement','CLAMs','Diamond','Gambit','Sphere','OkCash',
+    'Synergy','ParkByte','CapriCoin','Aeon','Ethereum','GlobalCurrencyReserve','TransferCoin','BitCrystals','Expanse','InfluxCoin','OMNI','AMP','IDNI Agoras','Lumen','Bitcoin','ClubCoin','Voxels','EmerCoin','Factom','MaidSafe','EverGreenCoin','SaluS','Radium','Decred','BitSend',
+    'Verge','Pivx','Vcash','Memetic','STEEM','2GIVE','Lisk','Project Decorum','Breakout','Waves','LBRY Credits','SteemDollars','Breakout Stake','Ethereum Classic','Stratis','UnbreakableCoin','Syndicate','eBoost','Verium','Sequence','Augur','Shift','Ardor','ZCoin','Neo',
+    'Zcash','Zclassic','Internet Of People','Golos','Ubiq','Komodo','GBG','Siberian Chervonets','Ion','Lomocoin','Qwark','Crown','Swarm City Token','Melon','Ark','Dynamic','Tokes','Musicoin','Databits','Incent','Bytes','Golem','Nexium','Edgeless','Legends',
+    'Trustcoin','Wings DAO','iEx.ec','Gnosis','Guppy','Lunyr','Humaniq','Aragon','Siacoin','Basic Attention Token','Zencash','FirstBlood','Quantum Resistant Ledger','Firstblood','CreditBit','Patientory','Cofound.it','Bancor','Numeraire','Status Network Token','DECENT','Elastic','Monaco','adToken','TenX Pay Token',
+    'Storj','AdEx','ZCash','OmiseGO','Civic','Particl','Qtum','Bitcoin Cash','district0x','Ada','Decentraland','Salt','Blocktix','Ripio Credit Network','Viberate','Mercury','PowerLedger','Bitcoin Gold','Enigma','UnikoinGold','Ignis','Sirin Token','Worldwide Asset Exchange','0x Protocol','BLOCKv'],
+    "against" : ["BTC-","ETH-","USDT-"]
   }
 }
 

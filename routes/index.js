@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
               var current_ticker = ticker_table.table[current_exchange][current_crypto] + user_cryptos[i].against;
             }
             else {
-              var current_ticker = user_crytpos[i].against + ticker_table.table[current_exchange][current_crypto]
+              var current_ticker = user_cryptos[i].against + ticker_table.table[current_exchange][current_crypto]
             }
             user_cryptos[i].Cvalue = (parseFloat(data[0][current_exchange][current_ticker]) * parseFloat(user_cryptos[i].volume)).toFixed(2);
           }

@@ -67,10 +67,12 @@ var get_coinbase_data = function() {
 
 var bittrex_interval = function(ticker) {
   return new Promise(function(fulfill,reject) {
-    request.get('https://bittrex.com/api/v1.1/public/getticker?market=' + ticker,function(error,response,body) {
-      if(error)reject(error);
-      else fulfill(body);
-    })
+    setTimeout(function(){
+      request.get('https://bittrex.com/api/v1.1/public/getticker?market=' + ticker,function(error,response,body) {
+        if(error)reject(error);
+        else fulfill(body);
+      })
+    },1000)
   })
 }
 

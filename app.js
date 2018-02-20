@@ -145,11 +145,11 @@ setInterval(function() {
     if(error)throw error;
     var result = JSON.parse(body).result
     var promises = [];
-    for(var item in result) {
-      var current_ticker = result[item].MarketName
-      promises.push(functions.bittrex_interval(current_ticker));
+    for(var i = 0;i< result.length;i++) {
+      promises.push(functions.bittrex_interval(result[i].MarketName))
     }
     Promise.all(promises).then(function(api_data) {
+      console.log(" ")
       mClient.connect(api_keys.mongo_url,function(error,database) {
         if(error)throw error;
         for(var i = 0; i < result.length; i++) {

@@ -105,6 +105,7 @@ setInterval(function() {
             database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set: {["Bitfinex." + current_ticker] : current_price}})
           }
         }
+        database.close()
         console.log('Bitfinex data updated')
       })
 
@@ -120,6 +121,7 @@ setInterval(function() {
         current_price = result[item].price;
         database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Binance." + current_ticker] : current_price}})
       }
+      database.close()
       console.log('Binance data updated')
     })
   })
@@ -133,6 +135,7 @@ setInterval(function() {
         var current_value = result[item].data.amount
         database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Coinbase." + current_ticker] : current_value}})
       }
+      database.close()
       console.log('Coinbase data updated')
     })
 
@@ -152,6 +155,7 @@ setInterval(function() {
         for(var i = 0; i < result.length; i++) {
           database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + result[i].MarketName] : JSON.parse(api_data[i]).result.Bid}})
         }
+        database.close()
         console.log('Bittrex data updated')
       })
     })

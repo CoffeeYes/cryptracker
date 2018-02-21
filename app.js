@@ -141,25 +141,54 @@ setInterval(function() {
 
   })
 
+  //update first half of bittrex data
   request.get('https://bittrex.com/api/v1.1/public/getmarkets',function(error,response,body) {
     if(error)throw error;
     var result = JSON.parse(body).result
+    var ticker_arr = [];
     var promises = [];
-    for(var i = 0;i< result.length;i++) {
-      promises.push(functions.bittrex_interval(result[i].MarketName))
+    for(var i = 0; i <result.length;i++) {
+      ticker_arr.push(result[i].MarketName)
+    }
+    console.log(ticker_arr.length)
+    for(var i = 0;i< 150;i++) {
+      promises.push(functions.bittrex_interval(ticker_arr[i]))
     }
     Promise.all(promises).then(function(api_data) {
-      console.log(" ")
       mClient.connect(api_keys.mongo_url,function(error,database) {
         if(error)throw error;
-        for(var i = 0; i < result.length; i++) {
+        for(var i = 0; i < 150; i++) {
           database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + result[i].MarketName] : JSON.parse(api_data[i]).result.Bid}})
         }
-        database.close()
-        console.log('Bittrex data updated')
+        console.log("Bittrex set 1 updated")
       })
     })
   })
+
+  //update second half of bittrex data offset by 1 minute
+  setTimeout(function() {
+    request.get('https://bittrex.com/api/v1.1/public/getmarkets',function(error,response,body) {
+      if(error)throw error;
+      var result = JSON.parse(body).result
+      var ticker_arr = [];
+      var promises = [];
+      for(var i = 150;i<268;i++) {
+        ticker_arr.push(result[i].MarketName)
+      }
+      for(var i = 0; i < ticker_arr.length; i++) {
+        promises.push(functions.bittrex_interval(ticker_arr[i]))
+      }
+      Promise.all(promises).then(function(api_data) {
+        mClient.connect(api_keys.mongo_url,function(error,database) {
+          if(error)throw error;
+          for(var i = 0;i<ticker_arr.length;i++) {
+            database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + ticker_arr[i]] : JSON.parse(api_data[i]).result.Bid}})
+          }
+          console.log("Bittrex data set 2 updated")
+        })
+      })
+    })
+  },60000)
 
 
 },120000)

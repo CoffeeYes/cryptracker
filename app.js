@@ -150,7 +150,6 @@ setInterval(function() {
     for(var i = 0; i <result.length;i++) {
       ticker_arr.push(result[i].MarketName)
     }
-    console.log(ticker_arr.length)
     for(var i = 0;i< 150;i++) {
       promises.push(functions.bittrex_interval(ticker_arr[i]))
     }
@@ -182,7 +181,10 @@ setInterval(function() {
         mClient.connect(api_keys.mongo_url,function(error,database) {
           if(error)throw error;
           for(var i = 0;i<ticker_arr.length;i++) {
-            database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + ticker_arr[i]] : JSON.parse(api_data[i]).result.Bid}})
+            //make sure value is not null to prevent error which crashes program
+            if(JSON.parse(api_data[i]).result != null) {
+              database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + ticker_arr[i]] : JSON.parse(api_data[i]).result.Bid}})
+            }
           }
           console.log("Bittrex data set 2 updated")
         })

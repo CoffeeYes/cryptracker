@@ -29,7 +29,7 @@ router.post('/',function(req,res) {
           //get id for ticker
           push_data.id = data[0].ticker_id;
           //calculate original value
-          push_data.Ovalue = (parseInt(push_data.volume) * parseFloat(push_data.buyIn)).toFixed(2);
+          push_data.Ovalue = (parseInt(push_data.volume) * parseFloat(push_data.buyIn))
 
           //increment id value on db
           database.collection(api_keys.mongo_collection_name).update({_id: ObjectId(req.session.userId)},{$inc : {ticker_id : 1}});

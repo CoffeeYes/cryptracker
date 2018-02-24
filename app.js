@@ -157,7 +157,9 @@ setInterval(function() {
       mClient.connect(api_keys.mongo_url,function(error,database) {
         if(error)throw error;
         for(var i = 0; i < 150; i++) {
-          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + result[i].MarketName] : JSON.parse(api_data[i]).result.Bid}})
+          if(JSON.parse(api_data[i]).result != null) {
+            database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + ticker_arr[i]] : JSON.parse(api_data[i]).result.Bid}})
+          }
         }
         database.close()
         console.log("Bittrex set 1 updated")
@@ -165,6 +167,17 @@ setInterval(function() {
     })
   })
 
+  Promise.all(functions.get_okex_data()).then(function(result) {
+    console.log(result)
+    var tickers = ticker_table.table.Okex.tickers
+    mClient.connect(api_keys.mongo_url,function(error,database) {
+      for(var i = 0; i < tickers.length;i++) {
+        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i]] : JSON.parse(result[i]).ticker.sell}})
+      }
+      database.close();
+      console.log('Okex data updated')
+    })
+  })
   //update second half of bittrex data offset by 1 minute
   setTimeout(function() {
     request.get('https://bittrex.com/api/v1.1/public/getmarkets',function(error,response,body) {
@@ -193,7 +206,6 @@ setInterval(function() {
       })
     })
   },60000)
-
 
 },120000)
 

@@ -1,6 +1,8 @@
 var request = require('request');
 var ticker_table = require('./ticker_table.js');
-var Promise = require('promise')
+var Promise = require('promise');
+var mClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 var check_empty = function(body) {
   for(var item in body) {
@@ -76,11 +78,27 @@ var bittrex_interval = function(ticker) {
   })
 }
 
+var get_okex_data = function() {
+  var tickers = ticker_table.table.Okex.tickers;
+  var promises = [];
+  for(var i = 0;i < tickers.length;i++) {
+    var promise = new Promise(function(fulfill,reject) {
+      request.get('https://www.okex.com/api/v1/ticker.do?symbol=' + tickers[i],function(error,response,body) {
+        if(error)reject(error);
+        else fulfill(body);
+      })
+    })
+    promises.push(promise)
+  }
+  return promises
+}
+
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
   get_binance_data: get_binance_data,
   bitfinex_interval: bitfinex_interval,
   get_coinbase_data: get_coinbase_data,
-  bittrex_interval: bittrex_interval
+  bittrex_interval: bittrex_interval,
+  get_okex_data: get_okex_data
 }

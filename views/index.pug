@@ -18,6 +18,7 @@ block content
       p.error=error
     .opaque-background
       form.add-ticker(action="/add-ticker",method="post")
+        p.close-form [X]
         p.error
         label Exchange
           select(name="exchange",class="exchange")

@@ -159,6 +159,7 @@ setInterval(function() {
         for(var i = 0; i < 150; i++) {
           database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + result[i].MarketName] : JSON.parse(api_data[i]).result.Bid}})
         }
+        database.close()
         console.log("Bittrex set 1 updated")
       })
     })
@@ -186,6 +187,7 @@ setInterval(function() {
               database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + ticker_arr[i]] : JSON.parse(api_data[i]).result.Bid}})
             }
           }
+          database.close()
           console.log("Bittrex data set 2 updated")
         })
       })

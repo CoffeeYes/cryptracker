@@ -167,19 +167,21 @@ setInterval(function() {
     })
   })
 
-  Promise.all(functions.get_okex_data()).then(function(result) {
-    console.log(result)
+  //update first half of okex data
+  Promise.all(functions.get_okex_data(0,15)).then(function(result) {
     var tickers = ticker_table.table.Okex.tickers
     mClient.connect(api_keys.mongo_url,function(error,database) {
-      for(var i = 0; i < tickers.length;i++) {
+      for(var i = 0; i < result.length;i++) {
         database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i]] : JSON.parse(result[i]).ticker.sell}})
       }
       database.close();
-      console.log('Okex data updated')
+      console.log('Okex data set 1 updated')
     })
   })
-  //update second half of bittrex data offset by 1 minute
+
+  //offset updating of second halves of data sets by 1 minute
   setTimeout(function() {
+    //second half of bittrex data
     request.get('https://bittrex.com/api/v1.1/public/getmarkets',function(error,response,body) {
       if(error)throw error;
       var result = JSON.parse(body).result
@@ -203,6 +205,18 @@ setInterval(function() {
           database.close()
           console.log("Bittrex data set 2 updated")
         })
+      })
+    })
+
+    //second half of okex data
+    Promise.all(functions.get_okex_data(15,21)).then(function(result) {
+      var tickers = ticker_table.table.Okex.tickers;
+      mClient.connect(api_keys.mongo_url,function(error,database) {
+        for(var i = 0; i < result.length;i++) {
+          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 15]] : JSON.parse(result[i]).ticker.sell}})
+        }
+        database.close();
+        console.log('Okex data set 2 updated')
       })
     })
   },60000)

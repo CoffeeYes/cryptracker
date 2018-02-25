@@ -78,15 +78,15 @@ var bittrex_interval = function(ticker) {
   })
 }
 
-var get_okex_data = function() {
+var get_okex_data = function(start,end) {
   var tickers = ticker_table.table.Okex.tickers;
   var promises = [];
-  for(var i = 0;i < tickers.length;i++) {
+  for(var i = start;i < end;i++) {
     var promise = new Promise(function(fulfill,reject) {
-      request.get('https://www.okex.com/api/v1/ticker.do?symbol=' + tickers[i],function(error,response,body) {
-        if(error)reject(error);
-        else fulfill(body);
-      })
+        request.get('https://www.okex.com/api/v1/ticker.do?symbol=' + tickers[i],{timeout : 100000},function(error,response,body) {
+          if(error)reject(error);
+          else fulfill(body);
+        })
     })
     promises.push(promise)
   }
@@ -100,5 +100,5 @@ module.exports = {
   bitfinex_interval: bitfinex_interval,
   get_coinbase_data: get_coinbase_data,
   bittrex_interval: bittrex_interval,
-  get_okex_data: get_okex_data
+  get_okex_data: get_okex_data,
 }

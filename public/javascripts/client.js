@@ -1,6 +1,6 @@
 //list of exchanges and their cryptos
 var exchange_list = {
-  "Exchanges" : ["Bitfinex","Binance","Coinbase","Bittrex"],
+  "Exchanges" : ["Bitfinex","Binance","Coinbase","Bittrex","Okex"],
   "Bitfinex" : {
     "currencies" : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
   "FunFair","Eidoo","YOYOW","Decentraland","Time New Bank","Golem","AidCoin","SpankChain","Aventus","Augur","Basic Attention Token","iExec","SingularDTV","RCN"],
@@ -29,6 +29,10 @@ var exchange_list = {
     'Trustcoin','Wings DAO','iEx.ec','Gnosis','Guppy','Lunyr','Humaniq','Aragon','Siacoin','Basic Attention Token','Zencash','FirstBlood','Quantum Resistant Ledger','Firstblood','CreditBit','Patientory','Cofound.it','Bancor','Numeraire','Status Network Token','DECENT','Elastic','Monaco','adToken','TenX Pay Token',
     'Storj','AdEx','ZCash','OmiseGO','Civic','Particl','Qtum','Bitcoin Cash','district0x','Ada','Decentraland','Salt','Blocktix','Ripio Credit Network','Viberate','Mercury','PowerLedger','Bitcoin Gold','Enigma','UnikoinGold','Ignis','Sirin Token','Worldwide Asset Exchange','0x Protocol','BLOCKv'],
     "against" : ["BTC-","ETH-","USDT-"]
+  },
+  "Okex" : {
+    "currencies" : ['Litecoin','Ethereum','Ethereum Classic','Bitcoin Cash',' Bitcoin','Neo','Bitcoin Gold','Bitcoin Futures','S2Xcoin Futures','Qtum','Hcash','Neo','GAS'],
+    "against" : ['_btc','usdt']
   }
 }
 

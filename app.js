@@ -168,7 +168,7 @@ setInterval(function() {
   })
 
   //update first half of okex data
-  Promise.all(functions.get_okex_data(0,15)).then(function(result) {
+  Promise.all(functions.get_okex_data(0,10)).then(function(result) {
     var tickers = ticker_table.table.Okex.tickers
     mClient.connect(api_keys.mongo_url,function(error,database) {
       for(var i = 0; i < result.length;i++) {
@@ -209,11 +209,11 @@ setInterval(function() {
     })
 
     //second half of okex data
-    Promise.all(functions.get_okex_data(15,21)).then(function(result) {
+    Promise.all(functions.get_okex_data(10,21)).then(function(result) {
       var tickers = ticker_table.table.Okex.tickers;
       mClient.connect(api_keys.mongo_url,function(error,database) {
         for(var i = 0; i < result.length;i++) {
-          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 15]] : JSON.parse(result[i]).ticker.sell}})
+          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 10]] : JSON.parse(result[i]).ticker.sell}})
         }
         database.close();
         console.log('Okex data set 2 updated')

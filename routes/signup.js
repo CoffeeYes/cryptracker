@@ -25,6 +25,10 @@ router.post('/',function(req,res,next) {
     return res.render('signup',{error: "Passwords do not match"})
   }
 
+  if(req.body.password1.length < 8) {
+    return res.render('signup',{error: "Password must be atleast 8 characters long"})
+  }
+
   //check email against regex
   if(functions.validate_email(req.body.email) == false) {
     return res.render('signup',{error: "Invalid email address"})

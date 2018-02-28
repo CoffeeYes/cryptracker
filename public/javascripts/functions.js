@@ -52,9 +52,9 @@ var get_binance_data = function() {
 var get_coinbase_data = function() {
   var promises = [];
   var against_arr = ["-USD","-EUR","-GBP"]
-  for(var item in ticker_table.table.Coinbase) {
+  for(var item in ticker_table.table.Coinbase.tickers) {
     for(x = 0; x< against_arr.length; x++) {
-      current_ticker = ticker_table.table.Coinbase[item] + against_arr[x]
+      current_ticker = ticker_table.table.Coinbase.tickers[item] + against_arr[x]
       var promise = new Promise(function(fulfill,reject) {
         request.get('https://api.coinbase.com/v2/prices/' + current_ticker + '/spot',function(error,response,body) {
           if(error)reject(error);

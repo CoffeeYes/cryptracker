@@ -4,7 +4,7 @@ var exchange_list = {
   "Bitfinex" : {
     "currencies" : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
   "FunFair","Eidoo","YOYOW","Decentraland","Time New Bank","Golem","AidCoin","SpankChain","Aventus","Augur","Basic Attention Token","iExec","SingularDTV","RCN"],
-    "against" : ["usd","btc","eth"]
+    "against" : ["USD","BTC","ETH"]
   },
   "Binance" : {
     "currencies": ["ETH",
@@ -17,7 +17,7 @@ var exchange_list = {
   },
   "Coinbase" : {
     "currencies" : ["Bitcoin","Litecoin","Ethereum","Bitcoin Cash"],
-    "against": ["-USD","-EUR","-GBP"]
+    "against": ["USD","EUR","GBP"]
   },
   "Bittrex" : {
     "currencies" : [ 'Litecoin','Dogecoin','Vertcoin','Peercoin','Feathercoin','ReddCoin','NXT','Dash','PotCoin','BlackCoin','Einsteinium','Myriad','AuroraCoin','ElectronicGulden','GoldCoin','SolarCoin','PesetaCoin ','Groestlcoin','Gulden','RubyCoin','WhiteCoin','MonaCoin','HempCoin',
@@ -28,11 +28,11 @@ var exchange_list = {
     'Zcash','Zclassic','Internet Of People','Golos','Ubiq','Komodo','GBG','Siberian Chervonets','Ion','Lomocoin','Qwark','Crown','Swarm City Token','Melon','Ark','Dynamic','Tokes','Musicoin','Databits','Incent','Bytes','Golem','Nexium','Edgeless','Legends',
     'Trustcoin','Wings DAO','iEx.ec','Gnosis','Guppy','Lunyr','Humaniq','Aragon','Siacoin','Basic Attention Token','Zencash','FirstBlood','Quantum Resistant Ledger','Firstblood','CreditBit','Patientory','Cofound.it','Bancor','Numeraire','Status Network Token','DECENT','Elastic','Monaco','adToken','TenX Pay Token',
     'Storj','AdEx','ZCash','OmiseGO','Civic','Particl','Qtum','Bitcoin Cash','district0x','Ada','Decentraland','Salt','Blocktix','Ripio Credit Network','Viberate','Mercury','PowerLedger','Bitcoin Gold','Enigma','UnikoinGold','Ignis','Sirin Token','Worldwide Asset Exchange','0x Protocol','BLOCKv'],
-    "against" : ["BTC-","ETH-","USDT-"]
+    "against" : ["BTC","ETH","USD"]
   },
   "Okex" : {
     "currencies" : ['Litecoin','Ethereum','Ethereum Classic','Bitcoin Cash',' Bitcoin','Neo','Bitcoin Gold','Bitcoin Futures','S2Xcoin Futures','Qtum','Hcash','Neo','GAS'],
-    "against" : ['_btc','usdt']
+    "against" : ['BTC','USD']
   }
 }
 

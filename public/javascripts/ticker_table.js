@@ -1,5 +1,10 @@
 var table = {
   "Bitfinex" : {
+    'against' : {
+      'USD' : 'usd',
+      'BTC' : 'btc',
+      'ETH' : 'eth'
+    },
     "Bitcoin" : "btc",
     "Ethereum" : "eth",
     "Ripple": "xrp",
@@ -39,6 +44,12 @@ var table = {
     "RCN" : "rcn"
   },
   "Binance" : {
+    'against' : {
+      'BTC' : 'BTC',
+      'ETC' : 'ETH',
+      'BNB' : 'BNB',
+      'USD' : 'USDT'
+    },
         "ETH" : "ETH",
         "LTC" : "LTC",
         "BNB" : "BNB",
@@ -152,12 +163,23 @@ var table = {
         "RPX" : "RPX",
   },
   "Coinbase" : {
+    'tickers' : ['BTC','LTC','ETH','BCH'],
+    'against' : {
+      'USD' : '-USD',
+      'EUR' : '-EUR',
+      'GBP' : '-GBP'
+    },
     "Bitcoin" : "BTC",
     "Litecoin" : "LTC",
     "Ethereum" : "ETH",
     "Bitcoin Cash" : "BCH"
   },
   "Bittrex" : {
+    'against' : {
+      'BTC' : 'BTC-',
+      'ETH' : 'ETH-',
+      'USD' : 'USDT-'
+    },
     'Litecoin': 'LTC',
     'Dogecoin': 'DOGE',
     'Vertcoin': 'VTC',
@@ -358,6 +380,10 @@ var table = {
     'BLOCKv': 'VEE' },
   'Okex' : {
     'tickers' : ['ltc_btc','eth_btc','etc_btc','bch_btc','btc_usdt','eth_usdt','ltc_usdt','etc_usdt','bch_usdt','etc_eth','bt1_btc','bt2_btc','btg_btc','qtum_btc','hsr_btc','neo_btc','gas_btc','qtum_usdt','hsr_usdt','neo_usdt','gas_usdt'],
+    'against' : {
+      'USD' : '_usdt',
+      'BTC' : '_btc'
+    },
     'Litecoin': 'ltc',
     'Ethereum': 'eth',
     'Ethereum Classic': 'etc',

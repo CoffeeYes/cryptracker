@@ -33,7 +33,7 @@ var get_api_data_2 = function(exchange,currency) {
 
 var bitfinex_interval = function(ticker) {
   return new Promise(function(fulfill,reject) {
-    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker, function(error,response,body) {
+    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,{timeout: 10000}, function(error,response,body) {
       if(error)reject(error);
       else fulfill(body);
     })

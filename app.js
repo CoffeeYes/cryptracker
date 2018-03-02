@@ -167,8 +167,8 @@ setInterval(function() {
     })
   })
 
-  //update first half of okex data
-  Promise.all(functions.get_okex_data(0,10)).then(function(result) {
+  //update first part of okex data
+  Promise.all(functions.get_okex_data(0,7)).then(function(result) {
     var tickers = ticker_table.table.Okex.tickers
     mClient.connect(api_keys.mongo_url,function(error,database) {
       for(var i = 0; i < result.length;i++) {
@@ -208,18 +208,32 @@ setInterval(function() {
       })
     })
 
-    //second half of okex data
-    Promise.all(functions.get_okex_data(10,21)).then(function(result) {
+    //second part of okex data
+    Promise.all(functions.get_okex_data(7,14)).then(function(result) {
       var tickers = ticker_table.table.Okex.tickers;
       mClient.connect(api_keys.mongo_url,function(error,database) {
         for(var i = 0; i < result.length;i++) {
-          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 10]] : JSON.parse(result[i]).ticker.sell}})
+          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 7]] : JSON.parse(result[i]).ticker.sell}})
         }
         database.close();
         console.log('Okex data set 2 updated')
       })
     })
   },60000)
+
+  //third part of okex data
+  setTimeout(function() {
+    Promise.all(functions.get_okex_data(14,21)).then(function(result) {
+      var tickers = ticker_table.table.Okex.tickers;
+      mClient.connect(api_keys.mongo_url,function(error,database) {
+        for(var i = 0; i < result.length;i++) {
+          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 14]] : JSON.parse(result[i]).ticker.sell}})
+        }
+        database.close();
+        console.log('Okex data set 3 updated')
+      })
+    })
+  },80000)
 
 },120000)
 

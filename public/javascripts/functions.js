@@ -3,6 +3,10 @@ var ticker_table = require('./ticker_table.js');
 var Promise = require('promise');
 var mClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
+var https = require('https');
+var pool = new https.Agent();
+
+pool.maxSockets = 2;
 
 var check_empty = function(body) {
   for(var item in body) {
@@ -23,7 +27,7 @@ var get_api_data_2 = function(exchange,currency) {
   var ticker = ticker_table.table[exchange][currency]
   if(exchange == "Bitfinex") {
     return new Promise(function(fulfill,reject) {
-      request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,function(error,response,body) {
+      request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,{agent:pool},function(error,response,body) {
         if(error) reject(error);
         else fulfill(body);
       })
@@ -33,7 +37,7 @@ var get_api_data_2 = function(exchange,currency) {
 
 var bitfinex_interval = function(ticker) {
   return new Promise(function(fulfill,reject) {
-    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,{timeout: 10000}, function(error,response,body) {
+    request.get('https://api.bitfinex.com/v1/pubticker/' + ticker,{timeout: 10000,agent:pool}, function(error,response,body) {
       if(error)reject(error);
       else fulfill(body);
     })
@@ -42,7 +46,7 @@ var bitfinex_interval = function(ticker) {
 
 var get_binance_data = function() {
   return new Promise(function(fulfill,reject) {
-    request.get('https://api.binance.com/api/v3/ticker/price',function(error,response,body) {
+    request.get('https://api.binance.com/api/v3/ticker/price',{agent:pool},function(error,response,body) {
       if(error) reject(error);
       else fulfill(body);
     })
@@ -56,7 +60,7 @@ var get_coinbase_data = function() {
     for(x = 0; x< against_arr.length; x++) {
       current_ticker = ticker_table.table.Coinbase.tickers[item] + against_arr[x]
       var promise = new Promise(function(fulfill,reject) {
-        request.get('https://api.coinbase.com/v2/prices/' + current_ticker + '/spot',function(error,response,body) {
+        request.get('https://api.coinbase.com/v2/prices/' + current_ticker + '/spot',{agent:pool},function(error,response,body) {
           if(error)reject(error);
           else fulfill(JSON.parse(body))
         })
@@ -70,7 +74,7 @@ var get_coinbase_data = function() {
 var bittrex_interval = function(ticker) {
   return new Promise(function(fulfill,reject) {
     setTimeout(function(){
-      request.get('https://bittrex.com/api/v1.1/public/getticker?market=' + ticker,function(error,response,body) {
+      request.get('https://bittrex.com/api/v1.1/public/getticker?market=' + ticker,{agent:pool},function(error,response,body) {
         if(error)reject(error);
         else fulfill(body);
       })
@@ -83,7 +87,7 @@ var get_okex_data = function(start,end) {
   var promises = [];
   for(var i = start;i < end;i++) {
     var promise = new Promise(function(fulfill,reject) {
-        request.get('https://www.okex.com/api/v1/ticker.do?symbol=' + tickers[i],{timeout : 100000},function(error,response,body) {
+        request.get('https://www.okex.com/api/v1/ticker.do?symbol=' + tickers[i],{timeout : 100000,agent: pool},function(error,response,body) {
           if(error)reject(error);
           else fulfill(body);
         })

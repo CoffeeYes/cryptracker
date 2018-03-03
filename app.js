@@ -90,7 +90,9 @@ setInterval(function() {
   //lookup tickers in ticker table and then perform api call, push result into promises array
 
   request.get('https://api.bitfinex.com/v1/symbols',function(error,response,body) {
-    var result = JSON.parse(body);
+    if(body) {
+      var result = JSON.parse(body);
+    }
     var promises = [];
     for(var item in result) {
       current_ticker = result[item];

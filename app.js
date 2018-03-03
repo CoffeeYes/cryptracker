@@ -172,7 +172,9 @@ setInterval(function() {
     var tickers = ticker_table.table.Okex.tickers
     mClient.connect(api_keys.mongo_url,function(error,database) {
       for(var i = 0; i < result.length;i++) {
-        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i]] : JSON.parse(result[i]).ticker.sell}})
+        if(result[i] != null) {
+          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i]] : JSON.parse(result[i]).ticker.sell}})
+        }
       }
       database.close();
       console.log('Okex data set 1 updated')
@@ -198,7 +200,7 @@ setInterval(function() {
           if(error)throw error;
           for(var i = 0;i<ticker_arr.length;i++) {
             //make sure value is not null to prevent error which crashes program
-            if(JSON.parse(api_data[i]).result != null) {
+            if(JSON.parse(api_data[i]).result != undefined) {
               database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Bittrex." + ticker_arr[i]] : JSON.parse(api_data[i]).result.Bid}})
             }
           }
@@ -213,7 +215,9 @@ setInterval(function() {
       var tickers = ticker_table.table.Okex.tickers;
       mClient.connect(api_keys.mongo_url,function(error,database) {
         for(var i = 0; i < result.length;i++) {
-          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 7]] : JSON.parse(result[i]).ticker.sell}})
+          if(result[i] != undefined) {
+            database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 7]] : JSON.parse(result[i]).ticker.sell}})
+          }
         }
         database.close();
         console.log('Okex data set 2 updated')
@@ -227,7 +231,9 @@ setInterval(function() {
       var tickers = ticker_table.table.Okex.tickers;
       mClient.connect(api_keys.mongo_url,function(error,database) {
         for(var i = 0; i < result.length;i++) {
-          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 14]] : JSON.parse(result[i]).ticker.sell}})
+          if(result[i] != undefined) {
+            database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {["Okex." + tickers[i + 14]] : JSON.parse(result[i]).ticker.sell}})
+          }
         }
         database.close();
         console.log('Okex data set 3 updated')

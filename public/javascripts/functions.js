@@ -97,6 +97,15 @@ var get_okex_data = function(start,end) {
   return promises
 }
 
+var get_bitthumb_data = function() {
+  return new Promise(function(fulfill,reject) {
+    request.get('https://api.bithumb.com/public/ticker/ALL',function(error,response,body) {
+      if(error)reject(error);
+      else fulfill(body);
+    })
+  })
+}
+
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
@@ -105,4 +114,5 @@ module.exports = {
   get_coinbase_data: get_coinbase_data,
   bittrex_interval: bittrex_interval,
   get_okex_data: get_okex_data,
+  get_bitthumb_data:get_bitthumb_data
 }

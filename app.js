@@ -83,9 +83,38 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//interval update of api data on database to avoid rate limiting
+//global counts for bitfinex sequential data get
+var global_count_start = 30;
+var global_count_end = 60;
+var global_count = 0;
+
 setInterval(function() {
 
+  global_count += 1;
+
+  if(global_count == 5) {
+    global_count = 1;
+  }
+
+
+  switch(global_count) {
+    case 1 :
+      var global_count_start = 0;
+      var global_count_end = 30;
+      break;
+    case 2 :
+      var global_count_start = 30;
+      var global_count_end = 60;
+      break;
+    case 3 :
+      var global_count_start = 60;
+      var global_count_end = 90;
+      break;
+    case 4 :
+      var global_count_start = 90;
+      var global_count_end = 105;
+      break;
+  }
 
   //lookup tickers in ticker table and then perform api call, push result into promises array
 
@@ -94,25 +123,30 @@ setInterval(function() {
       var result = JSON.parse(body);
     }
     var promises = [];
-    for(var item in result) {
-      current_ticker = result[item];
+    for(var i = global_count_start;i<global_count_end;i++) {
+      current_ticker = result[i];
       promises.push(functions.bitfinex_interval(current_ticker))
     }
     Promise.all(promises).then(function(api_data) {
+      console.log(api_data.length)
       mClient.connect(api_keys.mongo_url,function(error,database) {
-        for(var i=0;i< result.length;i++) {
+        for(var i=global_count_start;i< global_count_end;i++) {
           var current_ticker = result[i];
-          var current_price = JSON.parse(api_data[i]).bid
+          var current_price = JSON.parse(api_data[i - global_count_start]).bid
           if(current_price != undefined) {
             database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set: {["Bitfinex." + current_ticker] : current_price}})
           }
         }
         database.close()
-        console.log('Bitfinex data updated')
+        console.log('Bitfinex dataset ' + global_count + ' updated')
       })
 
     })
   })
+},65000)
+
+//interval update of api data on database to avoid rate limiting
+setInterval(function() {
 
   functions.get_binance_data().then(function(result) {
     var result = JSON.parse(result)

@@ -128,7 +128,6 @@ setInterval(function() {
       promises.push(functions.bitfinex_interval(current_ticker))
     }
     Promise.all(promises).then(function(api_data) {
-      console.log(api_data.length)
       mClient.connect(api_keys.mongo_url,function(error,database) {
         for(var i=global_count_start;i< global_count_end;i++) {
           var current_ticker = result[i];

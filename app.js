@@ -88,6 +88,7 @@ var global_count_start = 30;
 var global_count_end = 60;
 var global_count = 0;
 
+//functions for sequentially updating bitfinex data, as rate is limited to 30/minute
 setInterval(function() {
 
   global_count += 1;
@@ -116,8 +117,6 @@ setInterval(function() {
       break;
   }
 
-  //lookup tickers in ticker table and then perform api call, push result into promises array
-
   request.get('https://api.bitfinex.com/v1/symbols',function(error,response,body) {
     if(body) {
       var result = JSON.parse(body);
@@ -144,7 +143,7 @@ setInterval(function() {
   })
 },65000)
 
-//interval update of api data on database to avoid rate limiting
+//interval update of rest of api data on database to avoid rate limiting
 setInterval(function() {
 
   functions.get_binance_data().then(function(result) {
@@ -260,7 +259,7 @@ setInterval(function() {
     })
   },60000)
 
-  //third part of okex data
+  //third part of okex data offset 20 seconds from the 2nd
   setTimeout(function() {
     Promise.all(functions.get_okex_data(14,21)).then(function(result) {
       var tickers = ticker_table.table.Okex.tickers;

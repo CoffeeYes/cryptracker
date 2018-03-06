@@ -215,6 +215,20 @@ setInterval(function() {
     })
   })
 
+  //update bitthumb data
+  functions.get_bitthumb_data().then(function(result) {
+    var result = JSON.parse(result).data
+    var tickers = ticker_table.table.Bitthumb.tickers
+    mClient.connect(api_keys.mongo_url,function(error,database) {
+      if(error)throw error;
+      for(var i = 0; i < tickers.length; i ++) {
+        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {['Bitthumb.' + tickers[i]] : result[tickers[i]].sell_price}})
+      }
+      database.close();
+      console.log('Bitthumb data updated')
+    })
+  })
+
   //offset updating of second halves of data sets by 1 minute
   setTimeout(function() {
     //second half of bittrex data

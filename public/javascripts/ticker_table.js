@@ -397,6 +397,9 @@ var table = {
     'Hcash': 'hsr',
     'Neo': 'neo',
     'GAS': 'gas'
+  },
+  'Bitthumb' : {
+    'tickers' : ['BTC','ETH','DASH','LTC','ETC','XRP','BCH','XMR','ZEC','QTUM','BTG','EOS']
   }
 }
 

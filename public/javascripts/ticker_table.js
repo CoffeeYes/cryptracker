@@ -399,7 +399,19 @@ var table = {
     'GAS': 'gas'
   },
   'Bitthumb' : {
-    'tickers' : ['BTC','ETH','DASH','LTC','ETC','XRP','BCH','XMR','ZEC','QTUM','BTG','EOS']
+    'tickers' : ['BTC','ETH','DASH','LTC','ETC','XRP','BCH','XMR','ZEC','QTUM','BTG','EOS'],
+    'BTC' : 'BTC',
+    'ETH' : 'ETH',
+    'DASH' : 'DASH',
+    'LTC' : 'LTC',
+    'ETC' : 'ETC',
+    'XRP' : 'XRP',
+    'BCH' : 'BCH',
+    'XMR' : 'XMR',
+    'ZEC' : 'ZEC',
+    'QTUM' : 'QTUM',
+    'BTG' : 'BTG',
+    'EOS' : 'EOS'
   }
 }
 

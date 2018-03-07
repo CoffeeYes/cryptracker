@@ -28,12 +28,17 @@ router.get('/', function(req, res, next) {
           for(var i = 0; i < user_cryptos.length;i++) {
             var current_crypto = user_cryptos[i].currency;
             var current_exchange = user_cryptos[i].exchange;
-            var current_against = ticker_table.table[current_exchange].against[user_cryptos[i].against]
-            if(current_exchange != "Bittrex") {
-              var current_ticker = ticker_table.table[current_exchange][current_crypto] + current_against;
+            if(current_exchange != "Bitthumb") {
+              var current_against = ticker_table.table[current_exchange].against[user_cryptos[i].against]
+            }
+            if(current_exchange == "Bittrex") {
+              var current_ticker = current_against + ticker_table.table[current_exchange][current_crypto]
+            }
+            else if(current_exchange == "Bitthumb") {
+              current_ticker = ticker_table.table[current_exchange][current_crypto]
             }
             else {
-              var current_ticker = current_against + ticker_table.table[current_exchange][current_crypto]
+              var current_ticker = ticker_table.table[current_exchange][current_crypto] + current_against;
             }
             user_cryptos[i].Cvalue = (parseFloat(data[0][current_exchange][current_ticker]) * parseFloat(user_cryptos[i].volume)).toFixed(4);
           }

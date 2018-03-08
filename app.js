@@ -118,7 +118,7 @@ setInterval(function() {
   }
 
   request.get('https://api.bitfinex.com/v1/symbols',function(error,response,body) {
-    if(body) {
+    if(body != undefined) {
       var result = JSON.parse(body);
     }
     var promises = [];

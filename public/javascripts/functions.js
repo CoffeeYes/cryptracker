@@ -106,6 +106,15 @@ var get_bitthumb_data = function() {
   })
 }
 
+var get_kraken_data = function(ticker) {
+  return new Promise(function(fulfill,reject) {
+    request.get('https://api.kraken.com/0/public/Ticker?pair=' + ticker,function(error,response,body) {
+      if(error)throw error;
+      console.log(body)
+    })
+  })
+}
+
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
@@ -114,5 +123,6 @@ module.exports = {
   get_coinbase_data: get_coinbase_data,
   bittrex_interval: bittrex_interval,
   get_okex_data: get_okex_data,
-  get_bitthumb_data:get_bitthumb_data
+  get_bitthumb_data:get_bitthumb_data,
+  get_kraken_data:get_kraken_data
 }

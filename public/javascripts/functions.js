@@ -107,12 +107,18 @@ var get_bitthumb_data = function() {
 }
 
 var get_kraken_data = function(ticker) {
-  return new Promise(function(fulfill,reject) {
-    request.get('https://api.kraken.com/0/public/Ticker?pair=' + ticker,function(error,response,body) {
-      if(error)throw error;
-      console.log(body)
+  var tickers = ticker_table.table.Kraken.tickers;
+  var promises = [];
+  for(var i = 0; i < tickers.length; i++) {
+    var promise = new Promise(function(fulfill,reject) {
+      request.get('https://api.kraken.com/0/public/Ticker?pair=' + tickers[i],function(error,response,body) {
+        if(error)reject(error);
+        else fulfill(body);
+      })
     })
-  })
+    promises.push(promise)
+  }
+  return promises
 }
 
 module.exports = {

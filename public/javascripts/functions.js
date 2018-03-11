@@ -111,7 +111,7 @@ var get_kraken_data = function(ticker) {
   var promises = [];
   for(var i = 0; i < tickers.length; i++) {
     var promise = new Promise(function(fulfill,reject) {
-      request.get('https://api.kraken.com/0/public/Ticker?pair=' + tickers[i],function(error,response,body) {
+      request.get('https://api.kraken.com/0/public/Ticker?pair=' + tickers[i],{agent: pool},function(error,response,body) {
         if(error)reject(error);
         else fulfill(body);
       })

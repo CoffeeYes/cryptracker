@@ -229,6 +229,20 @@ setInterval(function() {
     })
   })
 
+  Promise.all(functions.get_kraken_data()).then(function(result) {
+    var tickers = ticker_table.table.Kraken.tickers;
+    mClient.connect(api_keys.mongo_url,function(error,database) {
+      for(var i = 0; i < result.length;i++) {
+        var current_ticker_data = JSON.parse(result[i]);
+        var current_ticker = tickers[i]
+        var current_price = current_ticker_data.result[tickers[i]].a[0]
+        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set: {['Kraken.' + current_ticker] : current_price}})
+      }
+      database.close();
+      console.log('Kraken data updated')
+    })
+  })
+  
 },120000)
 
 

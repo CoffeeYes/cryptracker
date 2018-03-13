@@ -39,7 +39,7 @@ var exchange_list = {
     "against" : ['USD']
   },
   "Kraken" : {
-    "currencies" : ["BCH","BCH","BCH","DASH","EOS","GNO","ETC","ETH","ICN","LTC","MLN","REP","XBT","XDG","XLM","XMR","XRP","ZEC"],
+    "currencies" : ["BCH","DASH","EOS","GNO","ETC","ETH","ICN","LTC","MLN","REP","XBT","XDG","XLM","XMR","XRP","ZEC"],
     "against" : ["USD","EUR","JPY","CAD","GBP"]
   }
 }

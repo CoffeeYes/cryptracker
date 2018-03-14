@@ -28,14 +28,13 @@ router.get('/', function(req, res, next) {
           for(var i = 0; i < user_cryptos.length;i++) {
             var current_crypto = user_cryptos[i].currency;
             var current_exchange = user_cryptos[i].exchange;
-            if(current_exchange != "Bitthumb") {
-              var current_against = ticker_table.table[current_exchange].against[user_cryptos[i].against]
-            }
+            var current_against = ticker_table.table[current_exchange].against[user_cryptos[i].against];
             if(current_exchange == "Bittrex") {
               var current_ticker = current_against + ticker_table.table[current_exchange][current_crypto]
             }
             else if(current_exchange == "Bitthumb") {
               current_ticker = ticker_table.table[current_exchange][current_crypto]
+              current_against = ""
             }
             else {
               var current_ticker = ticker_table.table[current_exchange][current_crypto] + current_against;

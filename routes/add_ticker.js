@@ -9,13 +9,27 @@ router.post('/',function(req,res) {
   mClient.connect(api_keys.mongo_url,function(error,database) {
     if(error)throw error;
     var push_data = req.body;
-    var against = ticker_table.table[push_data.exchange].against[push_data.against]
+    if(push_data.exchange != "Bitthumb" && push_data.exchange != "Kraken") {
+        var against = ticker_table.table[push_data.exchange].against[push_data.against]
+    }
     if(push_data.exchange == "Bittrex") {
       var ticker = against + ticker_table.table[push_data.exchange][push_data.currency]
     }
     else if (push_data.exchange == "Bitthumb") {
       var ticker = ticker_table.table[push_data.exchange][push_data.currency]
-      against = ""
+    }
+    else if(push_data.exchange == "Kraken") {
+      if(ticker_table.table.Kraken['tickers_noedit'].indexOf(push_data.currency) != -1) {
+        var ticker = push_data.currency + push_data.against
+      }
+      else {
+        if(push_data.against == "XBT" || push_data.against == "ETH") {
+          var ticker = "X" + push_data.currency + "X" + push_data.against;
+        }
+        else {
+          var ticker = "X" + push_data.currency + "Z" + push_data.against;
+        }
+      }
     }
     else {
       var ticker = ticker_table.table[push_data.exchange][push_data.currency] + against

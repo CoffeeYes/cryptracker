@@ -418,6 +418,9 @@ var table = {
     "XETHZEUR","XETHZGBP","XETHZJPY","XETHZUSD","XICNXETH","XICNXXBT","XLTCXXBT","XLTCZEUR","XLTCZUSD","XMLNXETH","XMLNXXBT","XREPXETH","XREPXXBT","XREPZEUR","XREPZUSD","XXBTZCAD","XXBTZEUR","XXBTZGBP",
     "XXBTZJPY","XXBTZUSD","XXDGXXBT","XXLMXXBT","XXLMZEUR","XXLMZUSD","XXMRXXBT","XXMRZEUR","XXMRZUSD","XXRPXXBT","XXRPZCAD","XXRPZEUR","XXRPZJPY","XXRPZUSD","XZECXXBT","XZECZEUR","XZECZJPY","XZECZUSD"],
     'tickers_noedit' : ["BCH","DASH","EOS","GNO"]
+  },
+  'Bitstamp' : {
+    'tickers' : ['btcusd', 'btceur', 'eurusd', 'xrpusd', 'xrpeur', 'xrpbtc', 'ltcusd', 'ltceur', 'ltcbtc', 'ethusd', 'etheur', 'ethbtc', 'bchusd', 'bcheur', 'bchbtc']
   }
 }
 

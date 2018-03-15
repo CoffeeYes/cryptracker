@@ -121,6 +121,20 @@ var get_kraken_data = function(ticker) {
   return promises
 }
 
+var get_bitstamp_data = function() {
+  var tickers = ticker_table.table.Bitstamp.tickers;
+  var promises = [];
+  for(var i = 0; i < tickers.length; i++) {
+    var promise = new Promise(function(fulfill,reject) {
+      request.get('https://www.bitstamp.net/api/v2/ticker/' + tickers[i],{agent:pool},function(error,response,body) {
+        if(error)reject(error);
+        else fulfill(body);
+      })
+    })
+    promises.push(promise)
+  }
+  return promises
+}
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
@@ -130,5 +144,6 @@ module.exports = {
   bittrex_interval: bittrex_interval,
   get_okex_data: get_okex_data,
   get_bitthumb_data:get_bitthumb_data,
-  get_kraken_data:get_kraken_data
+  get_kraken_data:get_kraken_data,
+  get_bitstamp_data: get_bitstamp_data
 }

@@ -1,6 +1,6 @@
 //list of exchanges and their cryptos
 var exchange_list = {
-  "Exchanges" : ["Bitfinex","Binance","Coinbase","Bittrex","Okex","Bitthumb","Kraken"],
+  "Exchanges" : ["Bitfinex","Binance","Coinbase","Bittrex","Okex","Bitthumb","Kraken","Bitstamp"],
   "Bitfinex" : {
     "currencies" : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
   "FunFair","Eidoo","YOYOW","Decentraland","Time New Bank","Golem","AidCoin","SpankChain","Aventus","Augur","Basic Attention Token","iExec","SingularDTV","RCN"],
@@ -41,6 +41,10 @@ var exchange_list = {
   "Kraken" : {
     "currencies" : ["BCH","DASH","EOS","GNO","ETC","ETH","ICN","LTC","MLN","REP","XBT","XDG","XLM","XMR","XRP","ZEC"],
     "against" : ["USD","EUR","JPY","CAD","GBP"]
+  },
+  "Bitstamp" : {
+    "currencies" : ['Bitcoin','Euro', 'Ripple', 'Litecoin','Ethereum', 'Bitcoin Cash'],
+    "against" : ["USD","EUR","BTC"]
   }
 }
 

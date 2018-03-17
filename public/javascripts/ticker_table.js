@@ -420,7 +420,18 @@ var table = {
     'tickers_noedit' : ["BCH","DASH","EOS","GNO"]
   },
   'Bitstamp' : {
-    'tickers' : ['btcusd', 'btceur', 'eurusd', 'xrpusd', 'xrpeur', 'xrpbtc', 'ltcusd', 'ltceur', 'ltcbtc', 'ethusd', 'etheur', 'ethbtc', 'bchusd', 'bcheur', 'bchbtc']
+    'tickers' : ['btcusd', 'btceur', 'eurusd', 'xrpusd', 'xrpeur', 'xrpbtc', 'ltcusd', 'ltceur', 'ltcbtc', 'ethusd', 'etheur', 'ethbtc', 'bchusd', 'bcheur', 'bchbtc'],
+    'against' : {
+      'USD' : 'usd',
+      'BTC' : 'btc',
+      'EUR' : 'eur'
+    },
+    'Bitcoin' : 'btc',
+    'Euro' : 'eur',
+    'Ripple' : 'xrp',
+    'Litecoin' : 'ltc',
+    'Ethereum' : 'eth',
+    'Bitcoin Cash' : 'bch'
   }
 }
 

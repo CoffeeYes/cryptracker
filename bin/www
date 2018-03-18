@@ -26,7 +26,10 @@ var io = require('socket.io')(server);
 var wss_bitfinex = new WebSocket('wss://api.bitfinex.com/ws/');
 
 wss_bitfinex.on('message',function(message) {
-  console.log(message);
+  var result = JSON.parse(message);
+  if(result.length > 2) {
+    io.emit('exchange data',result[1])
+  }
 })
 
 wss_bitfinex.on('open',function() {

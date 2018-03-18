@@ -116,4 +116,8 @@ $(document).ready(function() {
   })
 
   var socket = io()
+
+  socket.on('exchange data',function(data) {
+    $('.test-data').text(data)
+  })
 })

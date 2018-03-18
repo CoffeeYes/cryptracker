@@ -114,4 +114,6 @@ $(document).ready(function() {
     $(this).find($('.display-Gvalue')).text(Gvalue)
     $(this).find($('.display-Gvalue')).css('color',color_val)
   })
+
+  var socket = io()
 })

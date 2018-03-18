@@ -18,6 +18,8 @@
     "promise": "^8.0.1",
     "pug": "2.0.0-beta11",
     "request": "^2.83.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "socket.io": "^2.0.4",
+    "ws": "^5.0.0"
   }
 }

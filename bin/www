@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('cryptracker:server');
 var http = require('http');
+var WebSocket = require('ws');
 
 /**
  * Get port from environment and store in Express.
@@ -20,7 +21,27 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
 
+var wss_bitfinex = new WebSocket('wss://api.bitfinex.com/ws/');
+
+wss_bitfinex.on('message',function(message) {
+  console.log(message);
+})
+
+wss_bitfinex.on('open',function() {
+  var msg = {
+   "event":"subscribe",
+   "channel":"ticker",
+   "pair":"BTCUSD"
+  }
+
+  wss_bitfinex.send(JSON.stringify(msg))
+})
+
+io.on('connection',function(socket) {
+  console.log('user connected')
+})
 /**
  * Listen on provided port, on all network interfaces.
  */

@@ -82,7 +82,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+/*
 //global counts for bitfinex sequential data get
 var global_count_start = 30;
 var global_count_end = 60;
@@ -256,6 +256,6 @@ setInterval(function() {
     })
   })
 },120000)
-
+*/
 
 module.exports = app;

@@ -31,12 +31,14 @@ var ticker_data = {};
 wss_bitfinex.on('message',function(message) {
   var result = JSON.parse(message);
 
+  // if the result has a channelid, i.e is a subscription response, add it to the ticker_data object
   if(result.chanId) {
     ticker_data[result.chanId] = {
       'pair' : result.pair,
       'value' : 0
     }
   }
+  //otherwise update the data in the ticker_data object, as long as it is not a heartbeat
   else if(!(result.event) && result[1] != 'hb') {
     ticker_data[result[0]].value = result[1]
   }

@@ -1,5 +1,6 @@
 var table = {
   "Bitfinex" : {
+    'tickers' : ['BTCUSD', 'LTCUSD', 'LTCBTC', 'ETHUSD', 'ETHBTC', 'ETCUSD', 'ETCBTC', 'BFXUSD', 'BFXBTC', 'RRTUSD', 'RRTBTC', 'ZECUSD', 'ZECBTC'],
     'against' : {
       'USD' : 'usd',
       'BTC' : 'btc',

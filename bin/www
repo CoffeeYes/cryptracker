@@ -42,9 +42,6 @@ wss_bitfinex.on('message',function(message) {
   else if(!(result.event) && result[1] != 'hb') {
     ticker_data[result[0]].value = result[1]
   }
-  setInterval(function() {
-    console.log(ticker_data)
-  },1000)
   /*
   if(result.length > 2) {
     io.emit('exchange data',result[1])

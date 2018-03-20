@@ -117,7 +117,25 @@ $(document).ready(function() {
 
   var socket = io()
 
-  socket.on('exchange data',function(data) {
+  socket.on('bitfinex data',function(data) {
     $('.test-data').text(data)
+
+    $('.ticker').each(function() {
+      var exchange = $(this).find($('.display-exchange')).text();
+      var pair = $(this).find($('.display-pair')).text().toUpperCase();
+
+      for(var item in data) {
+        if(pair == data[item].pair) {
+          var volume = parseInt($(this).find($('.display-volume')).text())
+          var original_value = parseInt($(this).find($('.display-Ovalue')).text())
+          var current_data_value = parseFloat(data[item].value);
+          var new_current_value = volume * current_data_value;
+          var new_gained_value = new_current_value - original_value;
+
+          $(this).find($('.display-Cvalue')).text(String(new_current_value))
+          $(this).find($('.display-Gvalue')).text(String(new_gained_value))
+        }
+      }
+    })
   })
 })

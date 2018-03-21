@@ -51,7 +51,7 @@ GDAX_wss.on('message',function(msg) {
   }
   console.log(ticker_data)
 })
-/*
+
 var wss_bitfinex = new WebSocket('wss://api.bitfinex.com/ws/');
 
 wss_bitfinex.on('message',function(message) {
@@ -85,11 +85,6 @@ wss_bitfinex.on('open',function() {
     wss_bitfinex.send(JSON.stringify(msg))
   }
 })
-
-wss_bitfinex.on('connection',function() {
-  console.log('connected')
-})*/
-
 
 io.on('connection',function(socket) {
   console.log('user connected')

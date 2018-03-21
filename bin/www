@@ -26,7 +26,8 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 
 var ticker_data = {
-  "GDAX" : {}
+  "GDAX" : {},
+  "Bitfinex" : {}
 };
 
 var GDAX_wss = new WebSocket('wss://ws-feed.gdax.com');
@@ -59,14 +60,14 @@ wss_bitfinex.on('message',function(message) {
 
   // if the result has a channelid, i.e is a subscription response, add it to the ticker_data object
   if(result.chanId) {
-    ticker_data[result.chanId] = {
+    ticker_data["Bitfinex"][result.chanId] = {
       'pair' : result.pair,
       'value' : 0
     }
   }
   //otherwise update the data in the ticker_data object, as long as it is not a heartbeat
   else if(!(result.event) && result[1] != 'hb') {
-    ticker_data[result[0]].value = result[1]
+    ticker_data["Bitfinex"][result[0]].value = result[1]
   }
 
   io.emit('bitfinex data',ticker_data)

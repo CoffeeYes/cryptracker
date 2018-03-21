@@ -124,11 +124,11 @@ $(document).ready(function() {
       var exchange = $(this).find($('.display-exchange')).text();
       var pair = $(this).find($('.display-pair')).text().toUpperCase();
 
-      for(var item in data) {
-        if(pair == data[item].pair) {
+      for(var item in data[exchange]) {
+        if(pair == data[exchange][item].pair) {
           var volume = parseInt($(this).find($('.display-volume')).text())
           var original_value = parseInt($(this).find($('.display-Ovalue')).text())
-          var current_data_value = parseFloat(data[item].value);
+          var current_data_value = parseFloat(data[exchange][item].value);
           var new_current_value = volume * current_data_value;
           var new_gained_value = new_current_value - original_value;
 

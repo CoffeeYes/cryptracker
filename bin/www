@@ -25,9 +25,35 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
+var ticker_data = {
+  "GDAX" : {}
+};
+
+var GDAX_wss = new WebSocket('wss://ws-feed.gdax.com');
+
+GDAX_wss.on('open',function() {
+  var msg = {
+    "type": "subscribe",
+    "product_ids": [
+        "ETH-USD",
+        "ETH-EUR"
+    ],
+    "channels": ["ticker"]
+}
+  GDAX_wss.send(JSON.stringify(msg))
+})
+
+GDAX_wss.on('message',function(msg) {
+  var result = JSON.parse(msg);
+  if(result.type == 'ticker') {
+    var price = result.best_bid;
+    ticker_data["GDAX"][result.product_id] = price;
+  }
+  console.log(ticker_data)
+})
+/*
 var wss_bitfinex = new WebSocket('wss://api.bitfinex.com/ws/');
 
-var ticker_data = {};
 wss_bitfinex.on('message',function(message) {
   var result = JSON.parse(message);
 
@@ -59,6 +85,11 @@ wss_bitfinex.on('open',function() {
     wss_bitfinex.send(JSON.stringify(msg))
   }
 })
+
+wss_bitfinex.on('connection',function() {
+  console.log('connected')
+})*/
+
 
 io.on('connection',function(socket) {
   console.log('user connected')

@@ -118,25 +118,31 @@ $(document).ready(function() {
   //update users tickers based on websocket data
   var socket = io()
 
-  socket.on('bitfinex data',function(data) {
+  socket.on('websocket data',function(data) {
     $('.test-data').text(data)
 
     $('.ticker').each(function() {
       var exchange = $(this).find($('.display-exchange')).text();
       var pair = $(this).find($('.display-pair')).text().toUpperCase();
 
-      for(var item in data[exchange]) {
-        if(pair == data[exchange][item].pair) {
-          var volume = parseInt($(this).find($('.display-volume')).text())
-          var original_value = parseInt($(this).find($('.display-Ovalue')).text())
-          var current_data_value = parseFloat(data[exchange][item].value);
-          var new_current_value = volume * current_data_value;
-          var new_gained_value = new_current_value - original_value;
+      var volume = parseInt($(this).find($('.display-volume')).text())
+      var original_value = parseInt($(this).find($('.display-Ovalue')).text())
 
-          $(this).find($('.display-Cvalue')).text(String(new_current_value.toPrecision(4)))
-          $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)))
+      if(exchange == "Bitfinex") {
+        for(var item in data[exchange]) {
+          if(pair == data[exchange][item].pair) {
+            var current_data_value = parseFloat(data[exchange][item].value);
+          }
         }
       }
+      else {
+        var current_data_value = parseFloat(data[exchange][pair]);
+
+      }
+      var new_current_value = volume * current_data_value;
+      var new_gained_value = new_current_value - original_value;
+      $(this).find($('.display-Cvalue')).text(String(new_current_value.toPrecision(4)))
+      $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)))
     })
   })
 })

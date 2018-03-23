@@ -85,9 +85,6 @@ wss_bitfinex.on('message',function(message) {
   else if(!(result.event) && result[1] != 'hb') {
     ticker_data["Bitfinex"][result[0]].value = result[1]
   }
-
-  //push websocket data to user
-  io.emit('bitfinex data',ticker_data)
 })
 
 //binance doesnt require subscription messages, so the data can be pushed straight to the ticker_data object
@@ -102,6 +99,11 @@ wss_binance.on('message',function(msg) {
 io.on('connection',function(socket) {
   console.log('user connected')
 })
+
+//push websocket data to user every second
+setInterval(function() {
+  io.emit('websocket data',ticker_data)
+},1000)
 /**
  * Listen on provided port, on all network interfaces.
  */

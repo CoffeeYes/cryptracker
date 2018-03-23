@@ -27,12 +27,15 @@ var io = require('socket.io')(server);
 
 var ticker_data = {
   "GDAX" : {},
-  "Bitfinex" : {}
+  "Bitfinex" : {},
+  "Binance" : {}
 };
 
-var GDAX_wss = new WebSocket('wss://ws-feed.gdax.com');
+var wss_GDAX = new WebSocket('wss://ws-feed.gdax.com');
+var wss_bitfinex = new WebSocket('wss://api.bitfinex.com/ws/');
+var wss_binance = new WebSocket('wss://stream.binance.com:9443/ws/!ticker@arr');
 
-GDAX_wss.on('open',function() {
+wss_GDAX.on('open',function() {
   var msg = {
     "type": "subscribe",
     "product_ids": [
@@ -41,19 +44,32 @@ GDAX_wss.on('open',function() {
     ],
     "channels": ["ticker"]
 }
-  GDAX_wss.send(JSON.stringify(msg))
+  wss_GDAX.send(JSON.stringify(msg))
 })
 
-GDAX_wss.on('message',function(msg) {
+wss_GDAX.on('message',function(msg) {
   var result = JSON.parse(msg);
   if(result.type == 'ticker') {
     var price = result.best_bid;
     ticker_data["GDAX"][result.product_id] = price;
   }
-  console.log(ticker_data)
+  //console.log(ticker_data)
 })
 
-var wss_bitfinex = new WebSocket('wss://api.bitfinex.com/ws/');
+wss_bitfinex.on('open',function() {
+  var tickers = ticker_table.table.Bitfinex.tickers;
+
+  //subscribe to websocket info for all bitfinex tickers
+  for(var i = 0; i < tickers.length; i++) {
+    var msg = {
+     "event":"subscribe",
+     "channel":"ticker",
+     "pair":tickers[i]
+    }
+
+    wss_bitfinex.send(JSON.stringify(msg))
+  }
+})
 
 wss_bitfinex.on('message',function(message) {
   var result = JSON.parse(message);
@@ -70,23 +86,19 @@ wss_bitfinex.on('message',function(message) {
     ticker_data["Bitfinex"][result[0]].value = result[1]
   }
 
+  //push websocket data to user
   io.emit('bitfinex data',ticker_data)
 })
 
-wss_bitfinex.on('open',function() {
-  var tickers = ticker_table.table.Bitfinex.tickers;
-
-  for(var i = 0; i < tickers.length; i++) {
-    var msg = {
-     "event":"subscribe",
-     "channel":"ticker",
-     "pair":tickers[i]
-    }
-
-    wss_bitfinex.send(JSON.stringify(msg))
+//binance doesnt require subscription messages, so the data can be pushed straight to the ticker_data object
+wss_binance.on('message',function(msg) {
+  var result = JSON.parse(msg)
+  for(var item in result) {
+    ticker_data.Binance[result[item].s] = result[item].b
   }
 })
 
+//log when a user connects to the server
 io.on('connection',function(socket) {
   console.log('user connected')
 })

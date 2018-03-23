@@ -115,6 +115,7 @@ $(document).ready(function() {
     $(this).find($('.display-Gvalue')).css('color',color_val)
   })
 
+  //update users tickers based on websocket data
   var socket = io()
 
   socket.on('bitfinex data',function(data) {
@@ -132,8 +133,8 @@ $(document).ready(function() {
           var new_current_value = volume * current_data_value;
           var new_gained_value = new_current_value - original_value;
 
-          $(this).find($('.display-Cvalue')).text(String(new_current_value))
-          $(this).find($('.display-Gvalue')).text(String(new_gained_value))
+          $(this).find($('.display-Cvalue')).text(String(new_current_value.toPrecision(4)))
+          $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)))
         }
       }
     })

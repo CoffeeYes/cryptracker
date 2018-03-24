@@ -26,7 +26,7 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 
 var ticker_data = {
-  "GDAX" : {},
+  "Coinbase" : {},
   "Bitfinex" : {},
   "Binance" : {}
 };
@@ -47,11 +47,12 @@ wss_GDAX.on('open',function() {
   wss_GDAX.send(JSON.stringify(msg))
 })
 
+//coinbase websocket data comes from the GDAX websocket api
 wss_GDAX.on('message',function(msg) {
   var result = JSON.parse(msg);
   if(result.type == 'ticker') {
     var price = result.best_bid;
-    ticker_data["GDAX"][result.product_id] = price;
+    ticker_data["Coinbase"][result.product_id] = price;
   }
   //console.log(ticker_data)
 })

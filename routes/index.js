@@ -28,32 +28,8 @@ router.get('/', function(req, res, next) {
           for(var i = 0; i < user_cryptos.length;i++) {
             var current_crypto = user_cryptos[i].currency;
             var current_exchange = user_cryptos[i].exchange;
-            if(current_exchange != "Bitthumb" && current_exchange != "Kraken") {
-              var current_against = ticker_table.table[current_exchange].against[user_cryptos[i].against]
-            }
-            if(current_exchange == "Bittrex") {
-              var current_ticker = current_against + ticker_table.table[current_exchange][current_crypto]
-            }
-            else if(current_exchange == "Bitthumb") {
-              current_ticker = ticker_table.table[current_exchange][current_crypto]
-            }
-            else if (current_exchange == "Kraken") {
-              if(ticker_table.table.Kraken['tickers_noedit'].indexOf(user_cryptos[i].currency) != -1) {
-                current_ticker = user_cryptos[i].currency + user_cryptos[i].against
-              }
-              else {
-                if(user_cryptos[i].against == "XBT" || user_cryptos[i].against == "ETH") {
-                  current_ticker = "X" + user_cryptos[i].currency + "X" + user_cryptos[i].against;
-                }
-                else {
-                  current_ticker = "X" + user_cryptos[i].currency + "Z" + user_cryptos[i].against;
-                }
-              }
-            }
-            else {
-              var current_ticker = ticker_table.table[current_exchange][current_crypto] + current_against;
-            }
-            user_cryptos[i].Cvalue = (parseFloat(data[0][current_exchange][current_ticker]) * parseFloat(user_cryptos[i].volume)).toFixed(4);
+            var current_ticker = user_cryptos[i].pair
+            user_cryptos[i].Cvalue = (parseFloat(data[0][current_exchange][current_ticker]) * parseFloat(user_cryptos[i].volume)).toPrecision(4);
           }
           return res.render('index',{ticker_arr: user_cryptos})
         })

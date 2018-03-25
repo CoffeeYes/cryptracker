@@ -28,13 +28,14 @@ router.post('/',function(req,res) {
         }
         else {
           var ticker = "X" + push_data.currency + "Z" + push_data.against;
+
         }
       }
     }
     else {
       var ticker = ticker_table.table[push_data.exchange][push_data.currency] + against
     }
-    push_data.pair = ticker_table.table[push_data.exchange][push_data.currency] + against
+    push_data.pair = ticker
     database.collection(api_keys.db_crypto.collection_name).find({[push_data.exchange + "." + ticker] : {$ne : null}}).toArray(function(error,data) {
       if(error)throw error;
 

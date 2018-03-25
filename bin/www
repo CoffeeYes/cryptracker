@@ -8,6 +8,9 @@ var app = require('../app');
 var debug = require('debug')('cryptracker:server');
 var http = require('http');
 var WebSocket = require('ws');
+var mClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+var api_keys = require('./api_keys.js')
 
 var ticker_table = require('../public/javascripts/ticker_table.js')
 
@@ -109,6 +112,16 @@ setInterval(function() {
  * Listen on provided port, on all network interfaces.
  */
 
+setInterval(function() {
+  mClient.connect(api_keys.mongo_url,function(error,database) {
+    if(error)throw error;
+    database.collection(api_keys.db_crypto.collection_name).find().toArray(function(error,data) {
+      if(error)throw error;
+      var db_data = data[0]
+      io.emit('websocket data',db_data)
+    })
+  })
+},240000)
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

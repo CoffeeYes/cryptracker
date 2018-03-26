@@ -437,6 +437,13 @@ var table = {
     'Litecoin' : 'ltc',
     'Ethereum' : 'eth',
     'Bitcoin Cash' : 'bch'
+  },
+  'Bitz' : {
+    'tickers' : ['ltc_btc','eth_btc','zec_btc','fct_btc','lsk_btc','btc_usdt','eth_usdt','btx_btc','bch_btc','qtum_btc','dash_btc','game_btc','ark_btc','sss_btc','leo_btc','viu_btc','dgb_btc','part_btc','btg_btc','doge_eth','zsc_eth','gxs_eth','bcd_btc',
+    'trx_btc','trx_eth','btx_eth','nuls_eth','arn_btc','hwc_btc','oxy_btc','mco_btc','mco_eth','unit_btc','pylnt_btc','xrb_btc','btc_dkkt','eth_dkkt','etp_btc','rebl_btc','rebl_eth','gxs_dkkt','ddn_eth','aidoc_btc','aidoc_eth','ddn_btc','put_btc','put_eth','pok_btc',
+    'pok_eth','atm_btc','atm_eth','zgc_btc','zgc_eth','sphtx_btc','nkc_btc','nkc_eth','oc_btc','oc_eth','ocn_btc','ocn_eth','bnty_btc','bnty_eth','ink_btc','ink_eth','ekt_btc','sgcc_eth','egcc_btc','egcc_eth','woc_eth','pxc_btc','pxc_eth','btv_btc','btv_eth',
+    'qube_btc','qube_eth','ecom_eth','pix_btc','sgcc_btc','cre_btc','cre_eth','bcv_eth','gbc_eth','pc_eth','pc_btc','uc_eth','uc_btc','vct_eth','xpm_btc','doge_btc','etc_btc','mzc_btc','gxs_btc','hsr_btc','blk_btc','nuls_btc','voise_btc','pay_btc','eos_btc',
+    'omg_btc','ybct_btc','otn_btc','ppc_btc','xas_btc'],
   }
 }
 

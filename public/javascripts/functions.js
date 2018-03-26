@@ -135,6 +135,16 @@ var get_bitstamp_data = function() {
   }
   return promises
 }
+
+var get_bitz_data = function() {
+  return new Promise(function(fulfill,reject) {
+    request.get('https://www.bit-z.com/api_v1/tickerall',{agent:pool},function(error,response,body) {
+      var result = JSON.parse(body);
+      if(error)reject(error);
+      else fulfill(result);
+    })
+  })
+}
 module.exports = {
   check_empty: check_empty,
   validate_email: validate_email,
@@ -145,5 +155,6 @@ module.exports = {
   get_okex_data: get_okex_data,
   get_bitthumb_data:get_bitthumb_data,
   get_kraken_data:get_kraken_data,
-  get_bitstamp_data: get_bitstamp_data
+  get_bitstamp_data: get_bitstamp_data,
+  get_bitz_data: get_bitz_data
 }

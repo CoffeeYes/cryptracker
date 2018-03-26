@@ -118,7 +118,7 @@ setInterval(function() {
   }
 
   request.get('https://api.bitfinex.com/v1/symbols',function(error,response,body) {
-    if(body != undefined) {
+    if(body != []) {
       var result = JSON.parse(body);
     }
     var promises = [];
@@ -253,6 +253,18 @@ setInterval(function() {
       }
       database.close();
       console.log('Bitstamp data updated')
+    })
+  })
+
+  functions.get_bitz_data().then(function(result) {
+    var tickers = ticker_table.table.Bitz.tickers;
+    mClient.connect(api_keys.mongo_url,function(error,database) {
+      if(error)throw error;
+      for(var i = 0; i < tickers.length;i++) {
+        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set: {['Bitz.' + tickers[i]] : result.data[tickers[i]].sell}})
+      }
+      database.close();
+      console.log('Bitz data updated')
     })
   })
 },120000)

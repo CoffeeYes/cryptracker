@@ -13,7 +13,6 @@ block content
           button Login
           a(href="/signup") Signup
   else
-    p.test-data test
     .horizontal-center
       .add-button +
       p.error=error
@@ -53,6 +52,6 @@ block content
             h3.label Original Value :
               h2.display-Ovalue.val=item.Ovalue + " " + item.against
             h3.label Current Value :
-              h2.display-Cvalue.val=item.Cvalue + " " + item.against
+              h2.display-Cvalue.val=item.Cvalue
               h3.label Gained Value :
                 h2.display-Gvalue.val 0

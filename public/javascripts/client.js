@@ -129,7 +129,12 @@ $(document).ready(function() {
 
     $('.ticker').each(function() {
       var exchange = $(this).find($('.display-exchange')).text();
-      var pair = $(this).find($('.display-pair')).text().toUpperCase();
+      if(exchange != "Bitz") {
+        var pair = $(this).find($('.display-pair')).text().toUpperCase();
+      }
+      else {
+        var pair = $(this).find($('.display-pair')).text()
+      }
 
       var volume = parseInt($(this).find($('.display-volume')).text())
       var original_value = parseInt($(this).find($('.display-Ovalue')).text())

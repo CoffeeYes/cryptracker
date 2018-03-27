@@ -245,15 +245,20 @@ setInterval(function() {
 
   Promise.all(functions.get_bitstamp_data()).then(function(result) {
     var tickers = ticker_table.table.Bitstamp.tickers;
-    mClient.connect(api_keys.mongo_url,function(error,database) {
-      if(error)throw error;
-      for(var i = 0; i < result.length; i ++) {
-        var current_bid = JSON.parse(result[i]).bid
-        database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {['Bitstamp.' + tickers[i]] : current_bid}})
-      }
-      database.close();
-      console.log('Bitstamp data updated')
-    })
+    if(result) {
+      mClient.connect(api_keys.mongo_url,function(error,database) {
+        if(error)throw error;
+        for(var i = 0; i < result.length; i ++) {
+          var current_bid = JSON.parse(result[i]).bid
+          database.collection(api_keys.db_crypto.collection_name).update({_id: ObjectId(api_keys.db_crypto.id)},{$set : {['Bitstamp.' + tickers[i]] : current_bid}})
+        }
+        database.close();
+        console.log('Bitstamp data updated')
+      })
+    }
+    else {
+      console.log('no Bitstamp data recieved')
+    }
   })
 
   functions.get_bitz_data().then(function(result) {

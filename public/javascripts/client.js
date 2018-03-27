@@ -1,6 +1,6 @@
 //list of exchanges and their cryptos
 var exchange_list = {
-  "Exchanges" : ["Bitfinex","Binance","Coinbase","Bittrex","Okex","Bitthumb","Kraken","Bitstamp"],
+  "Exchanges" : ["Bitfinex","Binance","Coinbase","Bittrex","Okex","Bitthumb","Kraken","Bitstamp","Bitz"],
   "Bitfinex" : {
     "currencies" : ["Bitcoin","Ethereum","Ripple","Litecoin","Bitcoin Cash","EOS","NEO","Iota","Ethereum Classic","Zcash","Monero","Dash","OmiseGO","Bitcoin Gold","Santiment","Qtum","Aelf","TRON","0x","Qash","ETP","Status","Streamr",
   "FunFair","Eidoo","YOYOW","Decentraland","Time New Bank","Golem","AidCoin","SpankChain","Aventus","Augur","Basic Attention Token","iExec","SingularDTV","RCN"],
@@ -45,7 +45,13 @@ var exchange_list = {
   "Bitstamp" : {
     "currencies" : ['Bitcoin','Euro', 'Ripple', 'Litecoin','Ethereum', 'Bitcoin Cash'],
     "against" : ["USD","EUR","BTC"]
-  }
+  },
+  "Bitz" : {
+    "currencies" : ['Bitcoin','Litecoin','Ethereum','Zcash','Factom','Lisk','Bitcore','Bitcoin Cash','Qtum','Dash','GameCredits','Ark','Sharechain','LEOcoin','Viuly','DigiByte','Particl','Bitcoin Gold','Dogecoin','Zeusshield','GXChain','Bitcoin Diamond','TRON',
+    'Nuls','Aeron','HollyWoodCoin','Oxycoin','Monaco','Universal Currency','Pylon Network','Nano','Metaverse','Rebellious','Data Delivery Network','AI Doctor','PutinCoin','PokeCoin','ATMChain','ZenGold','SophiaTX','Nukecoinz','OrangeCoin','Odyssey','Bounty0x','Ink','EDUCare','Sgcc','Engine Chain Coin',
+    'Woc','Phoenixcoin','BitVote','Qube','Omnitude','Lampix','Credits','BCV','GBCGoldCoin','Pinkcoin','UC coin','Vertcoin','Primecoin','Mazacoin','Hshare','BlackCoin','Voise','TenX','EOS','OmiseGo','YbCoin','Open Trading Network','Peercoin','Asch'],
+    "against" : ["USD","BTC","ETH","DKKT"]
+  },
 }
 
 $(document).ready(function() {

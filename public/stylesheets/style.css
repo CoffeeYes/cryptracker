@@ -208,3 +208,9 @@ button {
 .close-form:hover {
   cursor: pointer;
 }
+
+.home {
+  margin-top: 20px;
+  color: black;
+  font-size: 30px;
+}

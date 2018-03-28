@@ -114,7 +114,7 @@ $(document).ready(function() {
     }
 
     //calculate and assign gained value, aswell as color
-    var Gvalue = (parseFloat($(this).find($('.display-Cvalue')).text()) - parseFloat($(this).find($('.display-Ovalue')).text())).toFixed(4)
+    var Gvalue = (parseFloat($(this).find($('.display-Cvalue')).text()) - parseFloat($(this).find($('.display-Ovalue')).text())).toPrecision(4)
     var color_val = $(this).find($('.display-Cvalue')).css('color')
 
     $(this).find($('.display-Gvalue')).text(Gvalue)

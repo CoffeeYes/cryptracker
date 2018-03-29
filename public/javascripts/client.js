@@ -136,23 +136,24 @@ $(document).ready(function() {
 
       var volume = parseInt($(this).find($('.display-volume')).text())
       var original_value = parseInt($(this).find($('.display-Ovalue')).text())
-
-      if(exchange == "Bitfinex") {
-        for(var item in data[exchange]) {
-          if(pair == data[exchange][item].pair || pair.toUpperCase() == data[exchange][item].pair) {
-            var current_data_value = parseFloat(data[exchange][item].value);
+      if(data[exchange] != undefined) {
+        if(exchange == "Bitfinex") {
+          for(var item in data[exchange]) {
+            if(pair == data[exchange][item].pair || pair.toUpperCase() == data[exchange][item].pair) {
+              var current_data_value = parseFloat(data[exchange][item].value);
+            }
           }
         }
-      }
-      else {
-        var current_data_value = parseFloat(data[exchange][pair]);
+        else {
+          var current_data_value = parseFloat(data[exchange][pair]);
 
+        }
+        var new_current_value = volume * current_data_value;
+        var new_gained_value = new_current_value - original_value;
+        var gained_percent = ((new_gained_value / original_value) * 100).toPrecision(4)
+        $(this).find($('.display-Cvalue')).text(String(new_current_value.toPrecision(4)))
+        $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)) + " (" + String(gained_percent) + "%)")
       }
-      var new_current_value = volume * current_data_value;
-      var new_gained_value = new_current_value - original_value;
-      var gained_percent = ((new_gained_value / original_value) * 100).toPrecision(4)
-      $(this).find($('.display-Cvalue')).text(String(new_current_value.toPrecision(4)))
-      $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)) + " (" + String(gained_percent) + "%)")
     })
   })
 })

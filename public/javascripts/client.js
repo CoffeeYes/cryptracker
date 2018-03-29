@@ -106,7 +106,10 @@ $(document).ready(function() {
 
   //change color of current value relative to original value
   $('.ticker').each(function() {
-    if(parseFloat($(this).find($('.display-Cvalue')).text()) > parseFloat($(this).find($('.display-Ovalue')).text())) {
+    var Cvalue = parseFloat($(this).find($('.display-Cvalue')).text());
+    var Ovalue = parseFloat($(this).find($('.display-Ovalue')).text());
+
+    if(Cvalue > Ovalue) {
       $(this).find($('.display-Cvalue')).css('color','green')
     }
     else {
@@ -114,10 +117,11 @@ $(document).ready(function() {
     }
 
     //calculate and assign gained value, aswell as color
-    var Gvalue = (parseFloat($(this).find($('.display-Cvalue')).text()) - parseFloat($(this).find($('.display-Ovalue')).text())).toPrecision(4)
+    var Gvalue = (Cvalue - Ovalue).toPrecision(4)
     var color_val = $(this).find($('.display-Cvalue')).css('color')
+    var Gpercent = ((Gvalue / Ovalue) * 100).toPrecision(4)
 
-    $(this).find($('.display-Gvalue')).text(Gvalue)
+    $(this).find($('.display-Gvalue')).text(Gvalue + " (" + String(Gpercent) + "%)")
     $(this).find($('.display-Gvalue')).css('color',color_val)
   })
 
@@ -125,7 +129,6 @@ $(document).ready(function() {
   var socket = io()
 
   socket.on('websocket data',function(data) {
-    $('.test-data').text(data)
 
     $('.ticker').each(function() {
       var exchange = $(this).find($('.display-exchange')).text();
@@ -147,8 +150,9 @@ $(document).ready(function() {
       }
       var new_current_value = volume * current_data_value;
       var new_gained_value = new_current_value - original_value;
+      var gained_percent = ((new_gained_value / original_value) * 100).toPrecision(4)
       $(this).find($('.display-Cvalue')).text(String(new_current_value.toPrecision(4)))
-      $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)))
+      $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)) + " (" + String(gained_percent) + "%)")
     })
   })
 })

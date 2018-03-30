@@ -214,3 +214,8 @@ button {
   color: black;
   font-size: 30px;
 }
+
+.total-value {
+  margin-top: 1em;
+  font-size: 40px;
+}

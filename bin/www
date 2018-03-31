@@ -43,7 +43,16 @@ wss_GDAX.on('open',function() {
     "type": "subscribe",
     "product_ids": [
         "ETH-USD",
-        "ETH-EUR"
+        "ETH-EUR",
+        "ETH-BTC",
+        "BTC-USD",
+        "BTC-EUR",
+        "LTC-BTC",
+        "LTC-USD",
+        "LTC-EUR",
+        "BCH-BTC",
+        "BCH-USD",
+        "BCH-EUR",
     ],
     "channels": ["ticker"]
 }

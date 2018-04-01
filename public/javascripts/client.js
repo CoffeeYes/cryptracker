@@ -140,11 +140,7 @@ $(document).ready(function() {
 
       if(data[exchange] != undefined) {
         if(exchange == "Bitfinex") {
-          for(var item in data[exchange]) {
-            if(pair == data[exchange][item].pair || pair.toUpperCase() == data[exchange][item].pair) {
-              var current_data_value = parseFloat(data[exchange][item].value);
-            }
-          }
+          current_data_value = data[exchange][pair.toUpperCase()]
         }
         else {
           var current_data_value = parseFloat(data[exchange][pair]);

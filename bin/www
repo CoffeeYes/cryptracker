@@ -33,6 +33,7 @@ var ticker_data = {
   "Bitfinex" : {},
   "Binance" : {}
 };
+var bitfinex_data = {}
 
 var wss_GDAX = new WebSocket('wss://ws-feed.gdax.com');
 var wss_bitfinex = new WebSocket('wss://api.bitfinex.com/ws/');
@@ -89,14 +90,18 @@ wss_bitfinex.on('message',function(message) {
 
   // if the result has a channelid, i.e is a subscription response, add it to the ticker_data object
   if(result.chanId) {
-    ticker_data["Bitfinex"][result.chanId] = {
+    bitfinex_data[result.chanId] = {
       'pair' : result.pair,
       'value' : 0
     }
   }
   //otherwise update the data in the ticker_data object, as long as it is not a heartbeat
   else if(!(result.event) && result[1] != 'hb') {
-    ticker_data["Bitfinex"][result[0]].value = result[1]
+    bitfinex_data[result[0]].value = result[1]
+  }
+
+  for(var item in bitfinex_data) {
+    ticker_data["Bitfinex"][bitfinex_data[item].pair] = bitfinex_data[item].value
   }
 })
 

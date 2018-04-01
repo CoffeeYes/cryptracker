@@ -13,7 +13,7 @@ var exchange_list = {
     "ENJ","VEN","RCN","KMD","NULS","RDN","DLT","XMR","AMB","BAT","BCPT","ARN","CDT","GVT","POE","GXS","QSP","BTS","XZC","TNT","LSK","MANA","BCD","FUEL","ADX",
     "DGD","ADA","PPT","CMT","XLM","CND","LEND","WABI","TNB","GTO","WAVES","ICX","OST","ELF","AION","BRD","NEBL","EDO","NAV","WINGS","TRIG","LUN","VIBE","INS","APPC",
     "RLC","IOST","PIVX","STEEM","CHAT","VIA","NANO","AE","BLZ","RPX",],
-    "against": ["BTC","ETH","BNB","USDT"]
+    "against": ["BTC","ETH","BNB","USD"]
   },
   "Coinbase" : {
     "currencies" : ["Bitcoin","Litecoin","Ethereum","Bitcoin Cash"],
@@ -163,6 +163,11 @@ $(document).ready(function() {
             case "Bittrex":
               total += cvalue * parseFloat(data[exchange]['USDT-' + against]);
               break;
+            case "Bitfinex":
+              total += cvalue * parseFloat(data[exchange][against + 'USD']);
+              break;
+            case "Binance":
+              total += cvalue * parseFloat(data[exchange][against + 'USDT'])
           }
 
         }

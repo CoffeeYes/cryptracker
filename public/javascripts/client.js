@@ -129,13 +129,15 @@ $(document).ready(function() {
   var socket = io()
 
   socket.on('websocket data',function(data) {
-
+    var total = 0;
     $('.ticker').each(function() {
       var exchange = $(this).find($('.display-exchange')).text();
       var pair = $(this).find($('.display-pair')).text();
+      var against = $(this).find($('.display-against')).text();
 
       var volume = parseInt($(this).find($('.display-volume')).text())
       var original_value = parseInt($(this).find($('.display-Ovalue')).text())
+
       if(data[exchange] != undefined) {
         if(exchange == "Bitfinex") {
           for(var item in data[exchange]) {
@@ -146,14 +148,30 @@ $(document).ready(function() {
         }
         else {
           var current_data_value = parseFloat(data[exchange][pair]);
-
         }
+
         var new_current_value = volume * current_data_value;
         var new_gained_value = new_current_value - original_value;
         var gained_percent = ((new_gained_value / original_value) * 100).toPrecision(4)
+
         $(this).find($('.display-Cvalue')).text(String(new_current_value.toPrecision(4)))
         $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)) + " (" + String(gained_percent) + "%)")
+
+        var cvalue = parseFloat($(this).find($('.display-Cvalue')).text());
+
+        if(against == "USD") {
+          total += cvalue;
+        }
+        else {
+          switch(exchange) {
+            case "Bittrex":
+              total += cvalue * parseFloat(data[exchange]['USDT-' + against]);
+              break;
+          }
+
+        }
       }
     })
+    $('.total-value').text(total.toPrecision(4))
   })
 })

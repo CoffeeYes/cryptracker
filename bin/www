@@ -28,11 +28,19 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
-var ticker_data = {
-  "Coinbase" : {},
-  "Bitfinex" : {},
-  "Binance" : {}
-};
+var ticker_data = {};
+
+mClient.connect(api_keys.mongo_url,function(error,database) {
+  if(error)throw error;
+  database.collection(api_keys.db_crypto.collection_name).find().toArray(function(error,data) {
+    if(error)throw error;
+    ticker_data = data[0];
+  })
+})
+
+ticker_data.Coinbase = {};
+ticker_data.Bitfinex = {};
+ticker_data.Binance = {};
 var bitfinex_data = {}
 
 var wss_GDAX = new WebSocket('wss://ws-feed.gdax.com');
@@ -131,8 +139,7 @@ setInterval(function() {
     if(error)throw error;
     database.collection(api_keys.db_crypto.collection_name).find().toArray(function(error,data) {
       if(error)throw error;
-      var db_data = data[0]
-      io.emit('websocket data',db_data)
+      ticker_data = data[0]
     })
   })
 },240000)

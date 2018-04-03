@@ -167,7 +167,10 @@ $(document).ready(function() {
               total += cvalue * parseFloat(data[exchange][against + 'USD']);
               break;
             case "Binance":
-              total += cvalue * parseFloat(data[exchange][against + 'USDT'])
+              total += cvalue * parseFloat(data[exchange][against + 'USDT']);
+            //okex only has bitcoin as its other against
+            case "Okex":
+              total += cvalue * parseFloat(data['Okex']['btc_usdt'])
           }
 
         }

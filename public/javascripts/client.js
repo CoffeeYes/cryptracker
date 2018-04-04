@@ -168,14 +168,17 @@ $(document).ready(function() {
               break;
             case "Binance":
               total += cvalue * parseFloat(data[exchange][against + 'USDT']);
+              break;
             //okex only has bitcoin as its other against
             case "Okex":
-              total += cvalue * parseFloat(data['Okex']['btc_usdt'])
+              total += cvalue * parseFloat(data['Okex']['btc_usdt']);
+              break;
+            case "Bitstamp":
+              total += cvalue * parseFloat(data[exchange][against.toLowerCase() + "usd"])
           }
-
         }
       }
     })
-    $('.total-value').text(total.toPrecision(4))
+    $('.total-value').text('$' + total.toPrecision(4))
   })
 })

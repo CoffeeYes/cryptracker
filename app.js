@@ -260,7 +260,7 @@ setInterval(function() {
       console.log('no Bitstamp data recieved')
     }
   })
-
+/*
   functions.get_bitz_data().then(function(result) {
     var tickers = ticker_table.table.Bitz.tickers;
     mClient.connect(api_keys.mongo_url,function(error,database) {
@@ -272,6 +272,7 @@ setInterval(function() {
       console.log('Bitz data updated')
     })
   })
+  */
 },120000)
 
 

@@ -54,6 +54,8 @@ var exchange_list = {
   },
 }
 
+var fiat = ['EUR','GBP','JPY','CAD']
+
 $(document).ready(function() {
 
   $('.add-button').click(function() {
@@ -135,8 +137,8 @@ $(document).ready(function() {
       var pair = $(this).find($('.display-pair')).text();
       var against = $(this).find($('.display-against')).text();
 
-      var volume = parseInt($(this).find($('.display-volume')).text())
-      var original_value = parseInt($(this).find($('.display-Ovalue')).text())
+      var volume = parseFloat($(this).find($('.display-volume')).text())
+      var original_value = parseFloat($(this).find($('.display-Ovalue')).text())
 
       if(data[exchange] != undefined) {
         if(exchange == "Bitfinex") {
@@ -159,22 +161,32 @@ $(document).ready(function() {
           total += cvalue;
         }
         else {
-          switch(exchange) {
-            case "Bittrex":
-              total += cvalue * parseFloat(data[exchange]['USDT-' + against]);
-              break;
-            case "Bitfinex":
-              total += cvalue * parseFloat(data[exchange][against + 'USD']);
-              break;
-            case "Binance":
-              total += cvalue * parseFloat(data[exchange][against + 'USDT']);
-              break;
-            //okex only has bitcoin as its other against
-            case "Okex":
-              total += cvalue * parseFloat(data['Okex']['btc_usdt']);
-              break;
-            case "Bitstamp":
-              total += cvalue * parseFloat(data[exchange][against.toLowerCase() + "usd"])
+          if(fiat.indexOf(against) == -1) {
+            switch(exchange) {
+              case "Bittrex":
+                total += cvalue * parseFloat(data[exchange]['USDT-' + against]);
+                break;
+              case "Bitfinex":
+                total += cvalue * parseFloat(data[exchange][against + 'USD']);
+                break;
+              case "Binance":
+                total += cvalue * parseFloat(data[exchange][against + 'USDT']);
+                break;
+              //okex only has bitcoin as its other against
+              case "Okex":
+                total += cvalue * parseFloat(data['Okex']['btc_usdt']);
+                break;
+              case "Bitstamp":
+                total += cvalue * parseFloat(data[exchange][against.toLowerCase() + "usd"])
+            }
+          }
+          else {
+            var currency = pair.substring(0,3)
+            switch(exchange) {
+              case "Kraken":
+                total += volume * parseFloat(data[exchange][currency + "USD"]);
+                break;
+            }
           }
         }
       }

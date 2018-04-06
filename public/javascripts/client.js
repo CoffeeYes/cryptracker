@@ -186,6 +186,9 @@ $(document).ready(function() {
               case "Kraken":
                 total += volume * parseFloat(data[exchange][currency + "USD"]);
                 break;
+              case "Coinbase":
+                total += volume * parseFloat(data[exchange][currency + "-USD"]);
+                break;
             }
           }
         }

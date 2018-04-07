@@ -188,7 +188,7 @@ $(document).ready(function() {
             }
           }
           else {
-            var currency = pair.substring(0,3)
+            var currency = pair.substring(0,pair.length - 3)
             switch(exchange) {
               case "Kraken":
                 var basic = ["BCH","DASH","EOS","GNO"];

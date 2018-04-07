@@ -191,6 +191,10 @@ $(document).ready(function() {
             var currency = pair.substring(0,3)
             switch(exchange) {
               case "Kraken":
+                var basic = ["BCH","DASH","EOS","GNO"];
+                if(basic.indexOf(currency) == -1) {
+                  currency = pair.substring(0,5);
+                }
                 current_total += volume * parseFloat(data[exchange][currency + "USD"]);
                 break;
               case "Coinbase":

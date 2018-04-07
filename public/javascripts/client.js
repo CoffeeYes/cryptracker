@@ -130,8 +130,15 @@ $(document).ready(function() {
   //update users tickers based on websocket data
   var socket = io()
 
+  var original_total = 0;
+
+  $('.ticker').each(function() {
+    var value = parseFloat($(this).find($('.display-Ovalue')).text());
+    original_total += value
+  })
+
   socket.on('websocket data',function(data) {
-    var total = 0;
+    var current_total = 0;
     $('.ticker').each(function() {
       var exchange = $(this).find($('.display-exchange')).text();
       var pair = $(this).find($('.display-pair')).text();
@@ -158,42 +165,50 @@ $(document).ready(function() {
         var cvalue = parseFloat($(this).find($('.display-Cvalue')).text());
 
         if(against == "USD") {
-          total += cvalue;
+          current_total += cvalue;
         }
         else {
           if(fiat.indexOf(against) == -1) {
             switch(exchange) {
               case "Bittrex":
-                total += cvalue * parseFloat(data[exchange]['USDT-' + against]);
+                current_total += cvalue * parseFloat(data[exchange]['USDT-' + against]);
                 break;
               case "Bitfinex":
-                total += cvalue * parseFloat(data[exchange][against + 'USD']);
+                current_total += cvalue * parseFloat(data[exchange][against + 'USD']);
                 break;
               case "Binance":
-                total += cvalue * parseFloat(data[exchange][against + 'USDT']);
+                current_total += cvalue * parseFloat(data[exchange][against + 'USDT']);
                 break;
               //okex only has bitcoin as its other against
               case "Okex":
-                total += cvalue * parseFloat(data['Okex']['btc_usdt']);
+                current_total += cvalue * parseFloat(data['Okex']['btc_usdt']);
                 break;
               case "Bitstamp":
-                total += cvalue * parseFloat(data[exchange][against.toLowerCase() + "usd"])
+                current_total += cvalue * parseFloat(data[exchange][against.toLowerCase() + "usd"])
             }
           }
           else {
             var currency = pair.substring(0,3)
             switch(exchange) {
               case "Kraken":
-                total += volume * parseFloat(data[exchange][currency + "USD"]);
+                current_total += volume * parseFloat(data[exchange][currency + "USD"]);
                 break;
               case "Coinbase":
-                total += volume * parseFloat(data[exchange][currency + "-USD"]);
+                current_total += volume * parseFloat(data[exchange][currency + "-USD"]);
                 break;
             }
           }
         }
       }
     })
-    $('.total-value').text('$' + total.toPrecision(4))
+    var total_percent = (((current_total - original_total) / original_total) * 100).toPrecision(4);
+
+    if(total_percent > 0) {
+      $('.total-value').css('color','green')
+    }
+    else {
+      $('.total-value').css('color','red')
+    }
+    $('.total-value').text('$' + current_total.toPrecision(4) + "(" + total_percent + "%)")
   })
 })

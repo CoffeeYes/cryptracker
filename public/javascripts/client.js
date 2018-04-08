@@ -196,6 +196,9 @@ $(document).ready(function() {
               case "Coinbase":
                 current_total += volume * parseFloat(data[exchange][currency + "-USD"]);
                 break;
+              case "Bitstamp":
+                current_total += volume * parseFloat(data[exchange][currency + "usd"]);
+                break;
             }
           }
         }

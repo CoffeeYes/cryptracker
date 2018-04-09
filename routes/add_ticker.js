@@ -35,7 +35,9 @@ router.post('/',function(req,res) {
     else {
       var ticker = ticker_table.table[push_data.exchange][push_data.currency] + against
     }
-    push_data.pair = ticker
+    push_data.pair = ticker;
+    push_data.buyIn = parseFloat(push_data.buyIn)
+    push_data.volume = parseFloat(push_data.volume)
     database.collection(api_keys.db_crypto.collection_name).find({[push_data.exchange + "." + ticker] : {$ne : null}}).toArray(function(error,data) {
       if(error)throw error;
 

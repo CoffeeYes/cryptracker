@@ -111,6 +111,15 @@ $(document).ready(function() {
     var Cvalue = parseFloat($(this).find($('.display-Cvalue')).text());
     var Ovalue = parseFloat($(this).find($('.display-Ovalue')).text());
 
+    //change font size for large values
+    if(String(Cvalue).length > 10) {
+      $(this).find($('.display-Cvalue')).css('font-size','2em')
+    }
+    if(String(Ovalue).length > 12) {
+      $(this).find($('.display-Ovalue')).css('font-size','2em');
+    }
+
+    //assign colors based on gained/lost value
     if(Cvalue > Ovalue) {
       $(this).find($('.display-Cvalue')).css('color','green')
     }

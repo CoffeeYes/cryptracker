@@ -129,16 +129,18 @@ $(document).ready(function() {
     $(this).find($('.display-Gvalue')).css('color',color_val)
   })
 
-  //update users tickers based on websocket data
+
   var socket = io()
 
   var original_total = 0;
 
+  //calculate total original value of portfolio
   $('.ticker').each(function() {
     var value = parseFloat($(this).find($('.display-Ovalue')).text());
     original_total += value
   })
 
+  //update tickers values on data emit from websocket
   socket.on('websocket data',function(data) {
     var current_total = 0;
     $('.ticker').each(function() {
@@ -168,7 +170,7 @@ $(document).ready(function() {
         if(!isNaN(new_gained_value)) {
           $(this).find($('.display-Gvalue')).text(String(new_gained_value.toPrecision(4)) + " (" + String(gained_percent) + "%)")
         }
-        
+
         var cvalue = parseFloat($(this).find($('.display-Cvalue')).text());
 
         if(against == "USD") {
@@ -211,6 +213,8 @@ $(document).ready(function() {
         }
       }
     })
+
+    //calculate total percent then set total portfolio value and color
     var total_percent = (((current_total - original_total) / original_total) * 100).toPrecision(4);
 
     if(total_percent > 0) {

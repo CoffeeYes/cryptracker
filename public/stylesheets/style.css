@@ -182,7 +182,7 @@ button {
 }
 
 .val {
-  font-size: 40px;
+  font-size: 2vw;
 }
 
 .del-ticker {
@@ -217,5 +217,5 @@ button {
 
 .total-value {
   margin-top: 1em;
-  font-size: 40px;
+  font-size: 3vw;
 }

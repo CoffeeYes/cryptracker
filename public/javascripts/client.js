@@ -112,11 +112,11 @@ $(document).ready(function() {
     var Ovalue = parseFloat($(this).find($('.display-Ovalue')).text());
 
     //change font size for large values
-    if(String(Cvalue).length > 10) {
-      $(this).find($('.display-Cvalue')).css('font-size','2em')
+    if(String(Cvalue).length > 8) {
+      $(this).find($('.display-Cvalue')).css('font-size','1.5vw')
     }
-    if(String(Ovalue).length > 12) {
-      $(this).find($('.display-Ovalue')).css('font-size','2em');
+    if(String(Ovalue).length > 8) {
+      $(this).find($('.display-Ovalue')).css('font-size','1.5vw');
     }
 
     //assign colors based on gained/lost value

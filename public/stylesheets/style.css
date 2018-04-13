@@ -168,6 +168,7 @@ button {
 .ticker .label {
   display: inline;
   color: #154360;
+  font-size: 1vw;
 }
 
 .value-container .label {
@@ -218,4 +219,8 @@ button {
 .total-value {
   margin-top: 1em;
   font-size: 3vw;
+}
+
+.display {
+  font-size: 1vw;
 }

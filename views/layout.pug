@@ -1,11 +1,13 @@
 doctype html
 html
   head
-    title= title
+    title Crypfolio
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(href="https://fonts.googleapis.com/css?family=Pacifico",rel='stylesheet')
     script(type="text/javascript",src="https://code.jquery.com/jquery-3.3.1.min.js")
     script(type="text/javascript",src="javascripts/client.js")
     script(src='/socket.io/socket.io.js')
+
   body
     include ../includes/header.pug
     block content

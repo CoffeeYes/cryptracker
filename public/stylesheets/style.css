@@ -50,11 +50,26 @@ button {
   font-family:sans-serif;
 }
 
+.title {
+  font-size: 4vw;
+  margin-bottom: 0;
+  color: white;
+  font-family: 'Pacifico';
+  letter-spacing: 4px;
+}
+
+.title-text {
+  font-size: 2vw;
+  margin-top: 5px;
+}
+
 .center-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .horizontal-center {

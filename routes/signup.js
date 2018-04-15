@@ -21,6 +21,10 @@ router.post('/',function(req,res,next) {
     return res.render('signup',{error: "fields cannot be empty"})
   }
 
+  if(req.body.username.length > 20) {
+    return res.render('signup',{error: "Username cannot exceed 20 characters"})
+  }
+
   if(req.body.password1 != req.body.password2) {
     return res.render('signup',{error: "Passwords do not match"})
   }

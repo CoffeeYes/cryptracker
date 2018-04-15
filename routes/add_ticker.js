@@ -16,6 +16,13 @@ router.post('/',function(req,res) {
       return res.render('index',{error: 'values cannot be negative',ticker_arr : {}})
     }
 
+    if(push_data.volume < 0.000001) {
+      return res.render('index',{error: 'Volume is too small',ticker_arr : {}})
+    }
+
+    if(push_data.buyIn < 0.00000001) {
+      return res.render('index',{error: 'Buy In is too small',ticker_arr : {}})
+    }
     //ticker parsing for each exchange, to ensure matching pairs with api data
     if(push_data.exchange != "Bitthumb" && push_data.exchange != "Kraken") {
         var against = ticker_table.table[push_data.exchange].against[push_data.against]
@@ -46,7 +53,7 @@ router.post('/',function(req,res) {
 
     //assign ticker in push data after parsing
     push_data.pair = ticker;
-    
+
     database.collection(api_keys.db_crypto.collection_name).find({[push_data.exchange + "." + ticker] : {$ne : null}}).toArray(function(error,data) {
       if(error)throw error;
 

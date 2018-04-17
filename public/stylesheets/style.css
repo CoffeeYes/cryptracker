@@ -97,6 +97,7 @@ button {
   justify-content: flex-end;
   padding: 0;
   margin: 10px 10px 0 0 ;
+  background-color: inherit;
 }
 
 .add-button {
@@ -180,6 +181,7 @@ button {
   height: 13em;
   margin-bottom: 20px;
   display: block;
+  background-color: white;
 }
 .ticker .label {
   display: inline;

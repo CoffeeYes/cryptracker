@@ -60,6 +60,10 @@ var viewport = $(window).width();
 
 $(document).ready(function() {
 
+  if(viewport < 800) {
+    $('#styles').attr('href','/stylesheets/mobile.css')
+  }
+
   $('.add-button').click(function() {
     $('.opaque-background').css('display','flex');
   })
@@ -238,8 +242,4 @@ $(document).ready(function() {
       $('.total-value').text('$' + current_total.toPrecision(4) + "(" + total_percent + "%)")
     }
   })
-
-  if(viewport < 800) {
-    $('#styles').attr('href','/stylesheets/mobile.css')
-  }
 })

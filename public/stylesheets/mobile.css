@@ -159,8 +159,8 @@ button {
 }
 
 .label-container {
-  margin-top: 1em;
-  margin-left: 2em;
+  margin-top: 0.5em;
+  margin-left: 1em;
 }
 
 .value-container {
@@ -169,7 +169,6 @@ button {
   justify-content: center;
   flex-wrap: wrap;
   align-content: flex-end;
-  height: 150px;
 }
 
 .ticker {
@@ -185,12 +184,13 @@ button {
 .ticker .label {
   display: inline;
   color: #154360;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .value-container .label {
   align-self: flex-end;
-  color: #465CE8
+  color: #465CE8;
+  font-size: 12px;
 }
 
 .ticker h2 {
@@ -200,7 +200,7 @@ button {
 }
 
 .val {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .del-ticker {
@@ -236,9 +236,9 @@ button {
 
 .total-value {
   margin-top: 1em;
-  font-size: 16px;
+  font-size: 30px;
 }
 
 .display {
-  font-size: 16px;
+  font-size: 12px;
 }
